@@ -31,6 +31,7 @@ class App {
         this._controls.target.set(0, 100, 0);
         this._controls.enablePan = false;
         this._controls.enableDamping = true;
+        this._controls.enabled = false;
         
         this._pressedKeys = {};
 
@@ -176,7 +177,8 @@ class App {
             });
 
             const box = (new THREE.Box3).setFromObject(artBuilding);
-            artBuilding.position.y = (box.max.y - box.min.y) / 2;
+            this._artUpperBound = (box.max.y - box.min.y) / 2;
+            artBuilding.position.y = -100;
 
             artBuilding.scale.set(6, 6, 6);
             artBuilding.position.x = startPoint.x - 100;
@@ -314,7 +316,7 @@ class App {
             5000
         );
 
-        camera.position.set(-1000, 50, 1500);
+        camera.position.set(-1000, 50, 1700);
         this._camera = camera;
     }
 
@@ -397,6 +399,10 @@ class App {
     _speed = 0;
     _maxSpeed = 0;
     _acceleration = 0;
+    _buildingMoveY = 0.5;
+    _buildingAcceleration = 0.01;
+    _cameraHold = new THREE.Vector3(0, 150, 400);
+    _isHold = true;
 
     update(time) {
         time *= 0.001; // second unit
@@ -410,6 +416,12 @@ class App {
         if(this._mixer) {
             const deltaTime = time - this._previousTime;
             this._mixer.update(deltaTime);
+
+            if (this._isHold && this._model.position.x < -1200 && this._cameraHold.x > -700) {
+                this._cameraHold.x -= 2;
+            } else if(this._isHold && this._model.position.x > -1200 && this._cameraHold.x < 0){
+                this._cameraHold.x += 2;
+            }
 
             const angleCameraDirectionAxisY = Math.atan2(
                 (this._camera.position.x - this._model.position.x),
@@ -455,9 +467,23 @@ class App {
                 const distance = this._model.position.distanceTo(this._bus.position);
                 if(distance < 400) {
                     this._busFlag = true;
+                    this._isHold = false;
+                }
+            }
+
+            if(this._model && this._artBuilding) {
+                const distance = this._model.position.distanceTo(this._artBuilding.position);
+                if(distance < 400) {
+                    this._artFlag = true;
                 }
             }
             
+            // 카메라가 항상 모델로부터 일정한 거리에 있도록
+            if(this._isHold) {
+                this._camera.position.x += (this._model.position.x + this._cameraHold.x - this._camera.position.x) / 50;
+                this._camera.position.y += (this._model.position.y + this._cameraHold.y - this._camera.position.y) / 50;
+                this._camera.position.z += (this._model.position.z + this._cameraHold.z - this._camera.position.z) / 50;
+            }
         }
 
         if(this._boxHelper_subway) {
@@ -474,9 +500,31 @@ class App {
             this._boxHelper_bus.update();
         }
 
+        if(this._boxHelper_artBuilding) {
+            this._boxHelper_artBuilding.update();
+        }        
+
         if(this._bus && this._busFlag) {
             const moveX = 20;
             this._bus.position.x += moveX;
+            // 카메라가 버스를 바라보게 회전
+            this._camera.lookAt(this._bus.position);
+
+            if (this._bus.position.x > 4000) {
+                this._busFlag = false;
+                this._isHold = true;
+            }
+        }
+
+        // 모델과 artBuilding이 가까워지면 artBuilding이 올라오도록
+        if(this._artBuilding && this._artFlag) {
+            if(this._artBuilding.position.y > this._artUpperBound) {
+                this._artFlag = false;
+                this._buildingMoveY = 0.5;
+            } else {
+                this._artBuilding.position.y += Math.pow(this._buildingMoveY, 2);
+                this._buildingMoveY += this._buildingAcceleration;
+            }
         }
 
         this._previousTime = time;
