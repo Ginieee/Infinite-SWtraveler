@@ -75,20 +75,234 @@ class App {
     }
 
     _setupModel() {
-        const planeGeometry = new THREE.PlaneGeometry(3000, 3000);
+        const planeGeometry = new THREE.PlaneGeometry(4000, 3000);
         const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x878787 });
+        const mesh = []
         // set floor with data/map.jpeg
-        const floorMaterial = new THREE.MeshPhongMaterial({
+        const map = new THREE.MeshPhongMaterial({
             map: new THREE.TextureLoader().load("data/map.jpeg")
         });
-        const plane = new THREE.Mesh(planeGeometry, floorMaterial);
+     
+        const plane = new THREE.Mesh(planeGeometry, map);
         plane.rotation.x = -Math.PI/2;
         this._scene.add(plane);
         plane.receiveShadow = true;
 
+        const textureloader = new THREE.TextureLoader();
         const startPoint = new THREE.Vector3(-1000, 0, 1300);
         const aiPoint = new THREE.Vector3(-300, 0, -450);
         const gachonPoint = new THREE.Vector3(200, 0, 600);
+
+        //ch1
+        const ch_1 = textureloader.load("data/ch1.png");
+        const ch1 = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,150),
+            new THREE.MeshStandardMaterial({
+                map: ch_1
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ch1.rotation.x = -Math.PI/2;
+        ch1.position.set(startPoint.x+100, 1, startPoint.z-650);
+        this._scene.add(ch1);
+
+        //ch2
+        const ch_2 = textureloader.load("data/ch2.png");
+        const ch2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,150),
+            new THREE.MeshStandardMaterial({
+                map: ch_2
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ch2.rotation.x = -Math.PI/2;
+        ch2.position.set(startPoint.x+300, 1, startPoint.z-1650);
+        this._scene.add(ch2);
+
+        //ch3
+        const ch_3 = textureloader.load("data/ch3.png");
+        const ch3 = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,150),
+            new THREE.MeshStandardMaterial({
+                map: ch_3
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ch3.rotation.x = -Math.PI/2;
+        ch3.position.set(startPoint.x+1500, 1, startPoint.z-1650);
+        this._scene.add(ch3);
+
+         //ch4
+         const ch_4 = textureloader.load("data/ch4.png");
+         const ch4 = new THREE.Mesh(
+             new THREE.PlaneGeometry(600,150),
+             new THREE.MeshStandardMaterial({
+                 map: ch_4
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         ch4.rotation.x = -Math.PI/2;
+         ch4.position.set(startPoint.x+1700, 1, startPoint.z-500);
+         this._scene.add(ch4);
+
+         //quiz
+         const _quiz = textureloader.load("data/quiz.png");
+         const quiz = new THREE.Mesh(
+             new THREE.PlaneGeometry(300,300),
+             new THREE.MeshStandardMaterial({
+                 map: _quiz
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         quiz.rotation.x = -Math.PI/2;
+         quiz.position.set(startPoint.x+700, 2, startPoint.z-1000);
+         this._scene.add(quiz);
+
+         //ap
+         const _ap = textureloader.load("data/a+.png");
+         const ap = new THREE.Mesh(
+             new THREE.PlaneGeometry(300,300),
+             new THREE.MeshStandardMaterial({
+                 map: _ap
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         ap.rotation.x = -Math.PI/2;
+         ap.position.set(startPoint.x-400, 2, startPoint.z-1800);
+         this._scene.add(ap);
+
+         //tutor
+         const _tutor = textureloader.load("data/tutor.png");
+         const tutor = new THREE.Mesh(
+             new THREE.PlaneGeometry(300,500),
+             new THREE.MeshStandardMaterial({
+                 map: _tutor
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         tutor.rotation.x = -Math.PI/2;
+         tutor.position.set(startPoint.x+1000, 2, startPoint.z-2000);
+         this._scene.add(tutor);
+
+         //muhan1
+         const _muhan1 = textureloader.load("data/muhan1.png");
+         const muhan1 = new THREE.Mesh(
+             new THREE.PlaneGeometry(200,300),
+             new THREE.MeshStandardMaterial({
+                 map: _muhan1
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         muhan1.rotation.x = -Math.PI/2;
+         muhan1.position.set(startPoint.x+2400, 2, startPoint.z-1000);
+         this._scene.add(muhan1);
+
+         //muhan2
+         const _muhan2 = textureloader.load("data/muhan2.png");
+         const muhan2 = new THREE.Mesh(
+             new THREE.PlaneGeometry(200,300),
+             new THREE.MeshStandardMaterial({
+                 map: _muhan2
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         muhan2.rotation.x = -Math.PI/2;
+         muhan2.position.set(startPoint.x-400, 2, startPoint.z-300);
+         this._scene.add(muhan2);
+
+         //red
+         const _red = textureloader.load("data/red.png");
+         const red = new THREE.Mesh(
+             new THREE.PlaneGeometry(50,100),
+             new THREE.MeshStandardMaterial({
+                 map: _red
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         red.rotation.x = -Math.PI/2;
+         red.position.set(startPoint.x+600, 2, startPoint.z-300);
+         this._scene.add(red);
+
+         //bird
+         const _bird = textureloader.load("data/bird.png");
+         const bird = new THREE.Mesh(
+             new THREE.PlaneGeometry(100,100),
+             new THREE.MeshStandardMaterial({
+                 map: _bird
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         bird.rotation.x = -Math.PI/2;
+         bird.position.set(startPoint.x-500, 2, startPoint.z-1000);
+         this._scene.add(bird);
+
+         //tree
+         const _tree = textureloader.load("data/tree.png");
+         const tree = new THREE.Mesh(
+             new THREE.PlaneGeometry(100,100),
+             new THREE.MeshStandardMaterial({
+                 map: _tree
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         tree.rotation.x = -Math.PI/2;
+         tree.position.set(startPoint.x+1500, 2, startPoint.z-200);
+         this._scene.add(tree);
+
+          //gachon
+          const _gachon = textureloader.load("data/gachon.png");
+          const gachon = new THREE.Mesh(
+              new THREE.PlaneGeometry(600,500),
+              new THREE.MeshStandardMaterial({
+                  map: _gachon
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          gachon.rotation.x = -Math.PI/2;
+          gachon.position.set(startPoint.x+1700, 2, startPoint.z-800);
+          this._scene.add(gachon);
+
+          //kitchen
+          const _kitchen = textureloader.load("data/kitchen.png");
+          const kitchen = new THREE.Mesh(
+              new THREE.PlaneGeometry(600,500),
+              new THREE.MeshStandardMaterial({
+                  map: _kitchen
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          kitchen.rotation.x = -Math.PI/2;
+          kitchen.position.set(startPoint.x+1500, 2, startPoint.z-1950);
+          this._scene.add(kitchen);
+
+          //p1
+          const _p1 = textureloader.load("data/p1.png");
+          const p1 = new THREE.Mesh(
+              new THREE.PlaneGeometry(400,60),
+              new THREE.MeshStandardMaterial({
+                  map: _p1
+                  ,transparent: true, opacity: 0.0, color: 'fffff'
+              })
+          );
+          p1.rotation.x = -Math.PI/2;
+          p1.position.set(startPoint.x-300, 2, startPoint.z-1400);
+          this.p1=p1;
+          this._scene.add(this.p1);
+
+          //ch1_p
+          const _ch1_p = textureloader.load("data/ch1_p.png");
+          const ch1_p = new THREE.Mesh(
+              new THREE.PlaneGeometry(400,60),
+              new THREE.MeshStandardMaterial({
+                  map: _ch1_p
+                  ,transparent: true, opacity: 0.0, color: 'fffff'
+              })
+          );
+          ch1_p.rotation.x = -Math.PI/2;
+          ch1_p.position.set(startPoint.x+100, 1, startPoint.z-550);
+          this.ch1_p=ch1_p;
+          this._scene.add(this.ch1_p);
+
 
         new THREE.GLTFLoader().load("data/subway.glb", (gltf) => {
             const subway = gltf.scene;
@@ -471,6 +685,18 @@ class App {
                 }
             }
 
+            if(this.p1 && this._model) {
+                const distance1 = this._model.position.distanceTo(this.p1.position);
+                if(distance1 < 500) {
+                    gsap.to(this.p1.material, {
+                        opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                        duration: 1, // 애니메이션 지속 시간 (초 단위)
+                        ease: "power1.out" // 애니메이션 효과 (옵션)
+                    });
+                }
+            }
+
+
             if(this._model && this._artBuilding) {
                 const distance = this._model.position.distanceTo(this._artBuilding.position);
                 if(distance < 400) {
@@ -513,6 +739,20 @@ class App {
             if (this._bus.position.x > 4000) {
                 this._busFlag = false;
                 this._isHold = true;
+                this.p = false; //완료
+            }
+        }
+
+        if(this.ch1_p && this._model && this.p == false) {
+            const distance1 = this._model.position.distanceTo(this.ch1_p.position);
+            if(distance1 < 200) {
+                gsap.to(this.ch1_p.material, {
+                    opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                    duration: 1, // 애니메이션 지속 시간 (초 단위)
+                    ease: "power1.out" // 애니메이션 효과 (옵션)
+                }).then(() => {
+                    console.log("ch1_p 완료")
+                })
             }
         }
 
@@ -521,6 +761,10 @@ class App {
             if(this._artBuilding.position.y > this._artUpperBound) {
                 this._artFlag = false;
                 this._buildingMoveY = 0.5;
+                console.log("artBuilding 완료")
+                setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerStack.html", 3000)
+                // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/chromeGame/chromeGame.html", 3000)
+                // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/quizGame/quizGame.html", 3000)
             } else {
                 this._artBuilding.position.y += Math.pow(this._buildingMoveY, 2);
                 this._buildingMoveY += this._buildingAcceleration;

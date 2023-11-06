@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./chromeGame.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHROME GAME</title>
+  </head>
+  <body>
+    <div id="progress-bar-cotnainer">
+      <div id="progress-bar">Loading...</div>
+      <progress id="progress-bar" value="0" max="100"></progress>
+    </div>
+    <div id="success">
+      <div>GAME SUCCESS</div>
+      <div id="home">GO HOME</div>
+    </div>
+    <div id="fail">
+      <div>GAME OVER</div>
+      <div id="retry">RETRY</div>
+    </div>
+    <script type="module" src="./chromeGame.js"></script>
+    <script type="text/javascript" src="../../js/three.js"></script>
+    <script type="text/javascript" src="../../js/GLTFLoader.js"></script>
+    <script type="text/javascript" src="../../js/OrbitControls.js"></script>
+    <script src="https://unpkg.com/gsap/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/@tweenjs/tween.js@^20.0.0/dist/tween.umd.js"></script>
+  </body>
+</html>
