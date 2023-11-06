@@ -145,6 +145,33 @@ class App {
          ch4.position.set(startPoint.x+1700, 1, startPoint.z-500);
          this._scene.add(ch4);
 
+
+         //star
+         const _star = textureloader.load("data/star.png");
+         const star = new THREE.Mesh(
+             new THREE.PlaneGeometry(150,150),
+             new THREE.MeshStandardMaterial({
+                 map: _star
+                 ,transparent: true, opacity: 1.0, color: 'fffff'
+             })
+         );
+         star.rotation.x = -Math.PI/2;
+         star.position.set(startPoint.x+1200, 1, startPoint.z-1000);
+         this._scene.add(star);
+
+          //moon
+          const _moon = textureloader.load("data/moon.png");
+          const moon = new THREE.Mesh(
+              new THREE.PlaneGeometry(120,120),
+              new THREE.MeshStandardMaterial({
+                  map: _moon
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          moon.rotation.x = -Math.PI/2;
+          moon.position.set(startPoint.x+1000, 1, startPoint.z-500);
+          this._scene.add(moon);
+
          //quiz
          const _quiz = textureloader.load("data/quiz.png");
          const quiz = new THREE.Mesh(
@@ -168,7 +195,7 @@ class App {
              })
          );
          ap.rotation.x = -Math.PI/2;
-         ap.position.set(startPoint.x-400, 2, startPoint.z-1800);
+         ap.position.set(startPoint.x-300, 2, startPoint.z-1800);
          this._scene.add(ap);
 
          //tutor
@@ -181,7 +208,7 @@ class App {
              })
          );
          tutor.rotation.x = -Math.PI/2;
-         tutor.position.set(startPoint.x+1000, 2, startPoint.z-2000);
+         tutor.position.set(startPoint.x+850, 2, startPoint.z-2000);
          this._scene.add(tutor);
 
          //muhan1
@@ -207,7 +234,7 @@ class App {
              })
          );
          muhan2.rotation.x = -Math.PI/2;
-         muhan2.position.set(startPoint.x-400, 2, startPoint.z-300);
+         muhan2.position.set(startPoint.x+400, 2, startPoint.z-300);
          this._scene.add(muhan2);
 
          //red
@@ -236,6 +263,19 @@ class App {
          bird.position.set(startPoint.x-500, 2, startPoint.z-1000);
          this._scene.add(bird);
 
+          //mudang
+          const _mudang = textureloader.load("data/mudang.png");
+          const mudang = new THREE.Mesh(
+              new THREE.PlaneGeometry(100,100),
+              new THREE.MeshStandardMaterial({
+                  map: _mudang
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          mudang.rotation.x = -Math.PI/2;
+          mudang.position.set(startPoint.x-500, 2, startPoint.z-500);
+          this._scene.add(mudang);
+
          //tree
          const _tree = textureloader.load("data/tree.png");
          const tree = new THREE.Mesh(
@@ -246,7 +286,7 @@ class App {
              })
          );
          tree.rotation.x = -Math.PI/2;
-         tree.position.set(startPoint.x+1500, 2, startPoint.z-200);
+         tree.position.set(startPoint.x+1100, 2, startPoint.z-200);
          this._scene.add(tree);
 
           //gachon
@@ -261,6 +301,20 @@ class App {
           gachon.rotation.x = -Math.PI/2;
           gachon.position.set(startPoint.x+1700, 2, startPoint.z-800);
           this._scene.add(gachon);
+
+
+           //ai
+           const _ai = textureloader.load("data/ai.png");
+           const ai = new THREE.Mesh(
+               new THREE.PlaneGeometry(600,500),
+               new THREE.MeshStandardMaterial({
+                   map: _ai
+                   ,transparent: true, opacity: 1.0, color: 'fffff'
+               })
+           );
+           ai.rotation.x = -Math.PI/2;
+           ai.position.set(startPoint.x+300, 2, startPoint.z-1950);
+           this._scene.add(ai);
 
           //kitchen
           const _kitchen = textureloader.load("data/kitchen.png");
@@ -285,9 +339,80 @@ class App {
               })
           );
           p1.rotation.x = -Math.PI/2;
-          p1.position.set(startPoint.x-300, 2, startPoint.z-1400);
+          p1.position.set(startPoint.x-300, 2, startPoint.z-1300);
           this.p1=p1;
           this._scene.add(this.p1);
+
+          //p4
+          const _p4 = textureloader.load("data/p4.png");
+          const p4 = new THREE.Mesh(
+              new THREE.PlaneGeometry(400,60),
+              new THREE.MeshStandardMaterial({
+                  map: _p4
+                  ,transparent: true, opacity: 0.0, color: 'fffff'
+              })
+          );
+          p4.rotation.x = -Math.PI/2;
+          p4.position.set(startPoint.x-300, 2, startPoint.z-900);
+          this.p4=p4;
+          this._scene.add(this.p4);
+
+          //p2
+          const _p2 = textureloader.load("data/p2.png");
+          const p2 = new THREE.Mesh(
+              new THREE.PlaneGeometry(400,60),
+              new THREE.MeshStandardMaterial({
+                  map: _p2
+                  ,transparent: true, opacity: 0.0, color: 'fffff'
+              })
+          );
+          p2.rotation.x = -Math.PI/2;
+          p2.position.set(startPoint.x+1100, 2, startPoint.z-900);
+          this.p2=p2;
+          this._scene.add(this.p2);
+
+           //p3
+           const _p3 = textureloader.load("data/p3.png");
+           const p3 = new THREE.Mesh(
+               new THREE.PlaneGeometry(400,60),
+               new THREE.MeshStandardMaterial({
+                   map: _p3
+                   ,transparent: true, opacity: 0.0, color: 'fffff'
+               })
+           );
+           p3.rotation.x = -Math.PI/2;
+           p3.position.set(startPoint.x+1300, 2, startPoint.z-700);
+           this.p3=p3;
+           this._scene.add(this.p3);
+
+           //p5
+           const _p5 = textureloader.load("data/p5.png");
+           const p5 = new THREE.Mesh(
+               new THREE.PlaneGeometry(400,60),
+               new THREE.MeshStandardMaterial({
+                   map: _p5
+                   ,transparent: true, opacity: 0.0, color: 'fffff'
+               })
+           );
+           p5.rotation.x = -Math.PI/2;
+           p5.position.set(startPoint.x+1100, 2, startPoint.z-500);
+           this.p5=p5;
+           this._scene.add(this.p5);
+ 
+
+          //shift
+          const _shift = textureloader.load("data/shift.png");
+          const shift = new THREE.Mesh(
+              new THREE.PlaneGeometry(400,60),
+              new THREE.MeshStandardMaterial({
+                  map: _shift
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          shift.rotation.x = -Math.PI/2;
+          shift.position.set(startPoint.x-150, 2, startPoint.z-100);
+          this.shift=shift;
+          this._scene.add(this.shift);
 
           //ch1_p
           const _ch1_p = textureloader.load("data/ch1_p.png");
@@ -299,9 +424,66 @@ class App {
               })
           );
           ch1_p.rotation.x = -Math.PI/2;
-          ch1_p.position.set(startPoint.x+100, 1, startPoint.z-550);
+          ch1_p.position.set(startPoint.x-150, 1, startPoint.z-1050);
           this.ch1_p=ch1_p;
           this._scene.add(this.ch1_p);
+
+          //tunnel
+          const _tunnel = textureloader.load("data/tunnel.png");
+          const tunnel = new THREE.Mesh(
+              new THREE.PlaneGeometry(300,300),
+              new THREE.MeshStandardMaterial({
+                  map: _tunnel
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          tunnel.rotation.x = -Math.PI/2;
+          tunnel.position.set(startPoint.x-180, 2, startPoint.z-450);
+          this.tunnel=tunnel;
+          this._scene.add(this.tunnel);
+
+
+          //tunnel1
+          const _tunnel1 = textureloader.load("data/tunnel.png");
+          const tunnel1 = new THREE.Mesh(
+              new THREE.PlaneGeometry(300,300),
+              new THREE.MeshStandardMaterial({
+                  map: _tunnel1
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          tunnel1.rotation.x = -Math.PI/2;
+          tunnel1.position.set(startPoint.x+100, 2, startPoint.z-1450);
+          this.tunnel1=tunnel1;
+          this._scene.add(this.tunnel1);
+
+          //tunnel2
+          const _tunnel2 = textureloader.load("data/tunnel.png");
+          const tunnel2 = new THREE.Mesh(
+              new THREE.PlaneGeometry(300,300),
+              new THREE.MeshStandardMaterial({
+                  map: _tunnel2
+                  ,transparent: true, opacity: 1.0, color: 'fffff'
+              })
+          );
+          tunnel2.rotation.x = -Math.PI/2;
+          tunnel2.position.set(startPoint.x+1300, 1, startPoint.z-1450);
+          this.tunnel2=tunnel2;
+          this._scene.add(this.tunnel2);
+
+           //tunnel3
+           const _tunnel3 = textureloader.load("data/tunnel.png");
+           const tunnel3 = new THREE.Mesh(
+               new THREE.PlaneGeometry(300,300),
+               new THREE.MeshStandardMaterial({
+                   map: _tunnel3
+                   ,transparent: true, opacity: 1.0, color: 'fffff'
+               })
+           );
+           tunnel3.rotation.x = -Math.PI/2;
+           tunnel3.position.set(startPoint.x+1500, 1, startPoint.z-300);
+           this.tunnel3=tunnel3;
+           this._scene.add(this.tunnel3);
 
 
         new THREE.GLTFLoader().load("data/subway.glb", (gltf) => {
@@ -395,8 +577,8 @@ class App {
             artBuilding.position.y = -100;
 
             artBuilding.scale.set(6, 6, 6);
-            artBuilding.position.x = startPoint.x - 100;
-            artBuilding.position.z = aiPoint.z + 300;
+            artBuilding.position.x = startPoint.x - 500;
+            artBuilding.position.z = aiPoint.z + 200;
 
             artBuilding.rotation.y = - Math.PI / 3;
 
@@ -405,6 +587,8 @@ class App {
             this._boxHelper_artBuilding = boxHelper;
             this._artBuilding = artBuilding;
         });
+
+    
 
         new THREE.GLTFLoader().load("data/ai_building.glb", (gltf) => {
             const aiBuilding = gltf.scene;
@@ -420,8 +604,8 @@ class App {
             aiBuilding.position.y = 30;
 
             aiBuilding.scale.set(0.3, 0.3, 0.3);
-            aiBuilding.position.x = aiPoint.x;
-            aiBuilding.position.z = aiPoint.z;
+            aiBuilding.position.x = startPoint.x+300;
+            aiBuilding.position.z = startPoint.z-1850;
 
             aiBuilding.rotation.y = Math.PI;
 
@@ -444,8 +628,8 @@ class App {
             const box = (new THREE.Box3).setFromObject(aiCube);
 
             aiCube.scale.set(1, 1, 1);
-            aiCube.position.x = aiPoint.x + 30;
-            aiCube.position.z = aiPoint.z - 30;
+            aiCube.position.x = startPoint.x+330;
+            aiCube.position.z = startPoint.z-1820;
             aiCube.position.y = 90;
 
             aiCube.rotation.y = Math.PI;
@@ -470,8 +654,8 @@ class App {
             gachonBuilding.position.y = (box.max.y - box.min.y) / 2;
 
             gachonBuilding.scale.set(20, 20, 20);
-            gachonBuilding.position.x = gachonPoint.x;
-            gachonBuilding.position.z = gachonPoint.z;
+            gachonBuilding.position.x = startPoint.x+1700;
+            gachonBuilding.position.z = startPoint.z-800;
 
             gachonBuilding.rotation.y = Math.PI / 6;
 
@@ -687,8 +871,52 @@ class App {
 
             if(this.p1 && this._model) {
                 const distance1 = this._model.position.distanceTo(this.p1.position);
-                if(distance1 < 500) {
+                if(distance1 < 300) {
                     gsap.to(this.p1.material, {
+                        opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                        duration: 1, // 애니메이션 지속 시간 (초 단위)
+                        ease: "power1.out" // 애니메이션 효과 (옵션)
+                    });
+                }
+            }
+
+            if(this.p4 && this._model) {
+                const distance2 = this._model.position.distanceTo(this.p4.position);
+                if(distance2 < 300) {
+                    gsap.to(this.p4.material, {
+                        opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                        duration: 1, // 애니메이션 지속 시간 (초 단위)
+                        ease: "power1.out" // 애니메이션 효과 (옵션)
+                    });
+                }
+            }
+
+            if(this.p2 && this._model) {
+                const distance3 = this._model.position.distanceTo(this.p2.position);
+                if(distance3 < 300) {
+                    gsap.to(this.p2.material, {
+                        opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                        duration: 1, // 애니메이션 지속 시간 (초 단위)
+                        ease: "power1.out" // 애니메이션 효과 (옵션)
+                    });
+                }
+            }
+
+            if(this.p3 && this._model) {
+                const distance4 = this._model.position.distanceTo(this.p3.position);
+                if(distance4 < 300) {
+                    gsap.to(this.p3.material, {
+                        opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
+                        duration: 1, // 애니메이션 지속 시간 (초 단위)
+                        ease: "power1.out" // 애니메이션 효과 (옵션)
+                    });
+                }
+            }
+
+            if(this.p5 && this._model) {
+                const distance5 = this._model.position.distanceTo(this.p5.position);
+                if(distance5 < 300) {
+                    gsap.to(this.p5.material, {
                         opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
                         duration: 1, // 애니메이션 지속 시간 (초 단위)
                         ease: "power1.out" // 애니메이션 효과 (옵션)
@@ -762,7 +990,7 @@ class App {
                 this._artFlag = false;
                 this._buildingMoveY = 0.5;
                 console.log("artBuilding 완료")
-                setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerStack.html", 3000)
+                //setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerStack.html", 3000)
                 // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/chromeGame/chromeGame.html", 3000)
                 // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/quizGame/quizGame.html", 3000)
             } else {
