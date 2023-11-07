@@ -132,358 +132,414 @@ class App {
         ch3.position.set(startPoint.x+1500, 1, startPoint.z-1650);
         this._scene.add(ch3);
 
-         //ch4
-         const ch_4 = textureloader.load("data/ch4.png");
-         const ch4 = new THREE.Mesh(
-             new THREE.PlaneGeometry(600,150),
-             new THREE.MeshStandardMaterial({
-                 map: ch_4
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         ch4.rotation.x = -Math.PI/2;
-         ch4.position.set(startPoint.x+1700, 1, startPoint.z-500);
-         this._scene.add(ch4);
+        //ch4
+        const ch_4 = textureloader.load("data/ch4.png");
+        const ch4 = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,150),
+            new THREE.MeshStandardMaterial({
+                map: ch_4
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ch4.rotation.x = -Math.PI/2;
+        ch4.position.set(startPoint.x+1700, 1, startPoint.z-500);
+        this._scene.add(ch4);
 
 
-         //star
-         const _star = textureloader.load("data/star.png");
-         const star = new THREE.Mesh(
-             new THREE.PlaneGeometry(150,150),
-             new THREE.MeshStandardMaterial({
-                 map: _star
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         star.rotation.x = -Math.PI/2;
-         star.position.set(startPoint.x+1200, 1, startPoint.z-1000);
-         this._scene.add(star);
+        //star
+        const _star = textureloader.load("data/star.png");
+        const star = new THREE.Mesh(
+            new THREE.PlaneGeometry(150,150),
+            new THREE.MeshStandardMaterial({
+                map: _star
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        star.rotation.x = -Math.PI/2;
+        star.position.set(startPoint.x+1200, 1, startPoint.z-1000);
+        this._scene.add(star);
 
-          //moon
-          const _moon = textureloader.load("data/moon.png");
-          const moon = new THREE.Mesh(
-              new THREE.PlaneGeometry(120,120),
-              new THREE.MeshStandardMaterial({
-                  map: _moon
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          moon.rotation.x = -Math.PI/2;
-          moon.position.set(startPoint.x+1000, 1, startPoint.z-500);
-          this._scene.add(moon);
+        //moon
+        const _moon = textureloader.load("data/moon.png");
+        const moon = new THREE.Mesh(
+            new THREE.PlaneGeometry(120,120),
+            new THREE.MeshStandardMaterial({
+                map: _moon
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        moon.rotation.x = -Math.PI/2;
+        moon.position.set(startPoint.x+1000, 1, startPoint.z-500);
+        this._scene.add(moon);
 
-         //quiz
-         const _quiz = textureloader.load("data/quiz.png");
-         const quiz = new THREE.Mesh(
-             new THREE.PlaneGeometry(300,300),
-             new THREE.MeshStandardMaterial({
-                 map: _quiz
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         quiz.rotation.x = -Math.PI/2;
-         quiz.position.set(startPoint.x+700, 2, startPoint.z-1000);
-         this._scene.add(quiz);
+        //quiz
+        const _quiz = textureloader.load("data/quiz.png");
+        const quiz = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _quiz
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        quiz.rotation.x = -Math.PI/2;
+        quiz.position.set(startPoint.x+700, 2, startPoint.z-1000);
+        this._scene.add(quiz);
 
-         //ap
-         const _ap = textureloader.load("data/a+.png");
-         const ap = new THREE.Mesh(
-             new THREE.PlaneGeometry(300,300),
-             new THREE.MeshStandardMaterial({
-                 map: _ap
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         ap.rotation.x = -Math.PI/2;
-         ap.position.set(startPoint.x-300, 2, startPoint.z-1800);
-         this._scene.add(ap);
+        //ap
+        const _ap = textureloader.load("data/a+.png");
+        const ap = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _ap
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ap.rotation.x = -Math.PI/2;
+        ap.position.set(startPoint.x-300, 2, startPoint.z-1800);
+        this._scene.add(ap);
 
-         //tutor
-         const _tutor = textureloader.load("data/tutor.png");
-         const tutor = new THREE.Mesh(
-             new THREE.PlaneGeometry(300,500),
-             new THREE.MeshStandardMaterial({
-                 map: _tutor
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         tutor.rotation.x = -Math.PI/2;
-         tutor.position.set(startPoint.x+850, 2, startPoint.z-2000);
-         this._scene.add(tutor);
+        //tutor
+        const _tutor = textureloader.load("data/tutor.png");
+        const tutor = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,500),
+            new THREE.MeshStandardMaterial({
+                map: _tutor
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tutor.rotation.x = -Math.PI/2;
+        tutor.position.set(startPoint.x+850, 2, startPoint.z-2000);
+        this._scene.add(tutor);
 
-         //muhan1
-         const _muhan1 = textureloader.load("data/muhan1.png");
-         const muhan1 = new THREE.Mesh(
-             new THREE.PlaneGeometry(200,300),
-             new THREE.MeshStandardMaterial({
-                 map: _muhan1
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         muhan1.rotation.x = -Math.PI/2;
-         muhan1.position.set(startPoint.x+2400, 2, startPoint.z-1000);
-         this._scene.add(muhan1);
+        //muhan1
+        const _muhan1 = textureloader.load("data/muhan1.png");
+        const muhan1 = new THREE.Mesh(
+            new THREE.PlaneGeometry(200,300),
+            new THREE.MeshStandardMaterial({
+                map: _muhan1
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        muhan1.rotation.x = -Math.PI/2;
+        muhan1.position.set(startPoint.x+2400, 2, startPoint.z-1000);
+        this._scene.add(muhan1);
 
-         //muhan2
-         const _muhan2 = textureloader.load("data/muhan2.png");
-         const muhan2 = new THREE.Mesh(
-             new THREE.PlaneGeometry(200,300),
-             new THREE.MeshStandardMaterial({
-                 map: _muhan2
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         muhan2.rotation.x = -Math.PI/2;
-         muhan2.position.set(startPoint.x+400, 2, startPoint.z-300);
-         this._scene.add(muhan2);
+        //muhan2
+        const _muhan2 = textureloader.load("data/muhan2.png");
+        const muhan2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(200,300),
+            new THREE.MeshStandardMaterial({
+                map: _muhan2
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        muhan2.rotation.x = -Math.PI/2;
+        muhan2.position.set(startPoint.x+400, 2, startPoint.z-300);
+        this._scene.add(muhan2);
 
-         //red
-         const _red = textureloader.load("data/red.png");
-         const red = new THREE.Mesh(
-             new THREE.PlaneGeometry(50,100),
-             new THREE.MeshStandardMaterial({
-                 map: _red
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         red.rotation.x = -Math.PI/2;
-         red.position.set(startPoint.x+600, 2, startPoint.z-300);
-         this._scene.add(red);
+        //red
+        const _red = textureloader.load("data/red.png");
+        const red = new THREE.Mesh(
+            new THREE.PlaneGeometry(50,100),
+            new THREE.MeshStandardMaterial({
+                map: _red
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        red.rotation.x = -Math.PI/2;
+        red.position.set(startPoint.x+600, 2, startPoint.z-300);
+        this._scene.add(red);
 
-         //bird
-         const _bird = textureloader.load("data/bird.png");
-         const bird = new THREE.Mesh(
-             new THREE.PlaneGeometry(100,100),
-             new THREE.MeshStandardMaterial({
-                 map: _bird
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         bird.rotation.x = -Math.PI/2;
-         bird.position.set(startPoint.x-500, 2, startPoint.z-1000);
-         this._scene.add(bird);
+        //bird
+        const _bird = textureloader.load("data/bird.png");
+        const bird = new THREE.Mesh(
+            new THREE.PlaneGeometry(100,100),
+            new THREE.MeshStandardMaterial({
+                map: _bird
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        bird.rotation.x = -Math.PI/2;
+        bird.position.set(startPoint.x-500, 2, startPoint.z-1000);
+        this._scene.add(bird);
 
-          //mudang
-          const _mudang = textureloader.load("data/mudang.png");
-          const mudang = new THREE.Mesh(
-              new THREE.PlaneGeometry(100,100),
-              new THREE.MeshStandardMaterial({
-                  map: _mudang
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          mudang.rotation.x = -Math.PI/2;
-          mudang.position.set(startPoint.x-500, 2, startPoint.z-500);
-          this._scene.add(mudang);
+        //mudang
+        const _mudang = textureloader.load("data/mudang.png");
+        const mudang = new THREE.Mesh(
+            new THREE.PlaneGeometry(100,100),
+            new THREE.MeshStandardMaterial({
+                map: _mudang
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        mudang.rotation.x = -Math.PI/2;
+        mudang.position.set(startPoint.x-500, 2, startPoint.z-500);
+        this._scene.add(mudang);
 
-         //tree
-         const _tree = textureloader.load("data/tree.png");
-         const tree = new THREE.Mesh(
-             new THREE.PlaneGeometry(100,100),
-             new THREE.MeshStandardMaterial({
-                 map: _tree
-                 ,transparent: true, opacity: 1.0, color: 'fffff'
-             })
-         );
-         tree.rotation.x = -Math.PI/2;
-         tree.position.set(startPoint.x+1100, 2, startPoint.z-200);
-         this._scene.add(tree);
+        //tree
+        const _tree = textureloader.load("data/tree.png");
+        const tree = new THREE.Mesh(
+            new THREE.PlaneGeometry(100,100),
+            new THREE.MeshStandardMaterial({
+                map: _tree
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tree.rotation.x = -Math.PI/2;
+        tree.position.set(startPoint.x+1100, 2, startPoint.z-200);
+        this._scene.add(tree);
 
-          //gachon
-          const _gachon = textureloader.load("data/gachon.png");
-          const gachon = new THREE.Mesh(
-              new THREE.PlaneGeometry(600,500),
-              new THREE.MeshStandardMaterial({
-                  map: _gachon
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          gachon.rotation.x = -Math.PI/2;
-          gachon.position.set(startPoint.x+1700, 2, startPoint.z-800);
-          this._scene.add(gachon);
-
-
-           //ai
-           const _ai = textureloader.load("data/ai.png");
-           const ai = new THREE.Mesh(
-               new THREE.PlaneGeometry(600,500),
-               new THREE.MeshStandardMaterial({
-                   map: _ai
-                   ,transparent: true, opacity: 1.0, color: 'fffff'
-               })
-           );
-           ai.rotation.x = -Math.PI/2;
-           ai.position.set(startPoint.x+300, 2, startPoint.z-1950);
-           this._scene.add(ai);
-
-          //kitchen
-          const _kitchen = textureloader.load("data/kitchen.png");
-          const kitchen = new THREE.Mesh(
-              new THREE.PlaneGeometry(600,500),
-              new THREE.MeshStandardMaterial({
-                  map: _kitchen
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          kitchen.rotation.x = -Math.PI/2;
-          kitchen.position.set(startPoint.x+1500, 2, startPoint.z-1950);
-          this._scene.add(kitchen);
-
-          //p1
-          const _p1 = textureloader.load("data/p1.png");
-          const p1 = new THREE.Mesh(
-              new THREE.PlaneGeometry(400,60),
-              new THREE.MeshStandardMaterial({
-                  map: _p1
-                  ,transparent: true, opacity: 0.0, color: 'fffff'
-              })
-          );
-          p1.rotation.x = -Math.PI/2;
-          p1.position.set(startPoint.x-300, 2, startPoint.z-1300);
-          this.p1=p1;
-          this._scene.add(this.p1);
-
-          //p4
-          const _p4 = textureloader.load("data/p4.png");
-          const p4 = new THREE.Mesh(
-              new THREE.PlaneGeometry(400,60),
-              new THREE.MeshStandardMaterial({
-                  map: _p4
-                  ,transparent: true, opacity: 0.0, color: 'fffff'
-              })
-          );
-          p4.rotation.x = -Math.PI/2;
-          p4.position.set(startPoint.x-300, 2, startPoint.z-900);
-          this.p4=p4;
-          this._scene.add(this.p4);
-
-          //p2
-          const _p2 = textureloader.load("data/p2.png");
-          const p2 = new THREE.Mesh(
-              new THREE.PlaneGeometry(400,60),
-              new THREE.MeshStandardMaterial({
-                  map: _p2
-                  ,transparent: true, opacity: 0.0, color: 'fffff'
-              })
-          );
-          p2.rotation.x = -Math.PI/2;
-          p2.position.set(startPoint.x+1100, 2, startPoint.z-900);
-          this.p2=p2;
-          this._scene.add(this.p2);
-
-           //p3
-           const _p3 = textureloader.load("data/p3.png");
-           const p3 = new THREE.Mesh(
-               new THREE.PlaneGeometry(400,60),
-               new THREE.MeshStandardMaterial({
-                   map: _p3
-                   ,transparent: true, opacity: 0.0, color: 'fffff'
-               })
-           );
-           p3.rotation.x = -Math.PI/2;
-           p3.position.set(startPoint.x+1300, 2, startPoint.z-700);
-           this.p3=p3;
-           this._scene.add(this.p3);
-
-           //p5
-           const _p5 = textureloader.load("data/p5.png");
-           const p5 = new THREE.Mesh(
-               new THREE.PlaneGeometry(400,60),
-               new THREE.MeshStandardMaterial({
-                   map: _p5
-                   ,transparent: true, opacity: 0.0, color: 'fffff'
-               })
-           );
-           p5.rotation.x = -Math.PI/2;
-           p5.position.set(startPoint.x+1100, 2, startPoint.z-500);
-           this.p5=p5;
-           this._scene.add(this.p5);
- 
-
-          //shift
-          const _shift = textureloader.load("data/shift.png");
-          const shift = new THREE.Mesh(
-              new THREE.PlaneGeometry(400,60),
-              new THREE.MeshStandardMaterial({
-                  map: _shift
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          shift.rotation.x = -Math.PI/2;
-          shift.position.set(startPoint.x-150, 2, startPoint.z-100);
-          this.shift=shift;
-          this._scene.add(this.shift);
-
-          //ch1_p
-          const _ch1_p = textureloader.load("data/ch1_p.png");
-          const ch1_p = new THREE.Mesh(
-              new THREE.PlaneGeometry(400,60),
-              new THREE.MeshStandardMaterial({
-                  map: _ch1_p
-                  ,transparent: true, opacity: 0.0, color: 'fffff'
-              })
-          );
-          ch1_p.rotation.x = -Math.PI/2;
-          ch1_p.position.set(startPoint.x-150, 1, startPoint.z-1050);
-          this.ch1_p=ch1_p;
-          this._scene.add(this.ch1_p);
-
-          //tunnel
-          const _tunnel = textureloader.load("data/tunnel.png");
-          const tunnel = new THREE.Mesh(
-              new THREE.PlaneGeometry(300,300),
-              new THREE.MeshStandardMaterial({
-                  map: _tunnel
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          tunnel.rotation.x = -Math.PI/2;
-          tunnel.position.set(startPoint.x-180, 2, startPoint.z-450);
-          this.tunnel=tunnel;
-          this._scene.add(this.tunnel);
+        //gachon
+        const _gachon = textureloader.load("data/gachon.png");
+        const gachon = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,500),
+            new THREE.MeshStandardMaterial({
+                map: _gachon
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        gachon.rotation.x = -Math.PI/2;
+        gachon.position.set(startPoint.x+1700, 2, startPoint.z-800);
+        this._scene.add(gachon);
 
 
-          //tunnel1
-          const _tunnel1 = textureloader.load("data/tunnel.png");
-          const tunnel1 = new THREE.Mesh(
-              new THREE.PlaneGeometry(300,300),
-              new THREE.MeshStandardMaterial({
-                  map: _tunnel1
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          tunnel1.rotation.x = -Math.PI/2;
-          tunnel1.position.set(startPoint.x+100, 2, startPoint.z-1450);
-          this.tunnel1=tunnel1;
-          this._scene.add(this.tunnel1);
+        //ai
+        const _ai = textureloader.load("data/ai.png");
+        const ai = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,500),
+            new THREE.MeshStandardMaterial({
+                map: _ai
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        ai.rotation.x = -Math.PI/2;
+        ai.position.set(startPoint.x+300, 2, startPoint.z-1950);
+        this._scene.add(ai);
 
-          //tunnel2
-          const _tunnel2 = textureloader.load("data/tunnel.png");
-          const tunnel2 = new THREE.Mesh(
-              new THREE.PlaneGeometry(300,300),
-              new THREE.MeshStandardMaterial({
-                  map: _tunnel2
-                  ,transparent: true, opacity: 1.0, color: 'fffff'
-              })
-          );
-          tunnel2.rotation.x = -Math.PI/2;
-          tunnel2.position.set(startPoint.x+1300, 1, startPoint.z-1450);
-          this.tunnel2=tunnel2;
-          this._scene.add(this.tunnel2);
+        //kitchen
+        const _kitchen = textureloader.load("data/kitchen.png");
+        const kitchen = new THREE.Mesh(
+            new THREE.PlaneGeometry(600,500),
+            new THREE.MeshStandardMaterial({
+                map: _kitchen
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        kitchen.rotation.x = -Math.PI/2;
+        kitchen.position.set(startPoint.x+1500, 2, startPoint.z-1950);
+        this._scene.add(kitchen);
 
-           //tunnel3
-           const _tunnel3 = textureloader.load("data/tunnel.png");
-           const tunnel3 = new THREE.Mesh(
-               new THREE.PlaneGeometry(300,300),
-               new THREE.MeshStandardMaterial({
-                   map: _tunnel3
-                   ,transparent: true, opacity: 1.0, color: 'fffff'
-               })
-           );
-           tunnel3.rotation.x = -Math.PI/2;
-           tunnel3.position.set(startPoint.x+1500, 1, startPoint.z-300);
-           this.tunnel3=tunnel3;
-           this._scene.add(this.tunnel3);
+        //p1
+        const _p1 = textureloader.load("data/p1.png");
+        const p1 = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _p1
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        p1.rotation.x = -Math.PI/2;
+        p1.position.set(startPoint.x-300, 2, startPoint.z-1300);
+        this.p1=p1;
+        this._scene.add(this.p1);
+
+        //p4
+        const _p4 = textureloader.load("data/p4.png");
+        const p4 = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _p4
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        p4.rotation.x = -Math.PI/2;
+        p4.position.set(startPoint.x-300, 2, startPoint.z-900);
+        this.p4=p4;
+        this._scene.add(this.p4);
+
+        //p2
+        const _p2 = textureloader.load("data/p2.png");
+        const p2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _p2
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        p2.rotation.x = -Math.PI/2;
+        p2.position.set(startPoint.x+1100, 2, startPoint.z-900);
+        this.p2=p2;
+        this._scene.add(this.p2);
+
+        //p3
+        const _p3 = textureloader.load("data/p3.png");
+        const p3 = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _p3
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        p3.rotation.x = -Math.PI/2;
+        p3.position.set(startPoint.x+1300, 2, startPoint.z-700);
+        this.p3=p3;
+        this._scene.add(this.p3);
+
+        //p5
+        const _p5 = textureloader.load("data/p5.png");
+        const p5 = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _p5
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        p5.rotation.x = -Math.PI/2;
+        p5.position.set(startPoint.x+1100, 2, startPoint.z-500);
+        this.p5=p5;
+        this._scene.add(this.p5);
+
+
+        //shift
+        const _shift = textureloader.load("data/shift.png");
+        const shift = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _shift
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        shift.rotation.x = -Math.PI/2;
+        shift.position.set(startPoint.x-150, 2, startPoint.z-100);
+        this.shift=shift;
+        this._scene.add(this.shift);
+
+        //ch1_p
+        const _ch1_p = textureloader.load("data/ch1_p.png");
+        const ch1_p = new THREE.Mesh(
+            new THREE.PlaneGeometry(400,60),
+            new THREE.MeshStandardMaterial({
+                map: _ch1_p
+                ,transparent: true, opacity: 0.0, color: 'fffff'
+            })
+        );
+        ch1_p.rotation.x = -Math.PI/2;
+        ch1_p.position.set(startPoint.x-150, 1, startPoint.z-1050);
+        this.ch1_p=ch1_p;
+        this._scene.add(this.ch1_p);
+
+        const offsetX = 60;
+        const offsetY = 100;
+        const offsetZ = 80;
+
+        //tunnel
+        const _tunnel = textureloader.load("data/tunnel.png");
+        const tunnel = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _tunnel
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tunnel.rotation.x = -Math.PI/2;
+        tunnel.position.set(startPoint.x-180, 2, startPoint.z-450);
+        this.tunnel=tunnel;
+        this._scene.add(this.tunnel);
+        const tunnelBoundingBox = new THREE.Box3();
+        const tunnelMinX = tunnel.position.x + offsetX / 4;
+        const tunnelMinY = tunnel.position.y;
+        const tunnelMinZ = tunnel.position.z - offsetZ;
+        const tunnelMaxX = tunnel.position.x + (offsetX * 2);
+        const tunnelMaxY = tunnel.position.y + offsetY;
+        const tunnelMaxZ = tunnel.position.z + offsetZ / 2;
+        tunnelBoundingBox.set(
+            new THREE.Vector3(tunnelMinX, tunnelMinY, tunnelMinZ),
+            new THREE.Vector3(tunnelMaxX, tunnelMaxY, tunnelMaxZ)
+        );
+        this.tunnelBoundingBox = tunnelBoundingBox;
+        this._scene.add(new THREE.Box3Helper(tunnelBoundingBox, 0x0000ff));
+
+
+        //tunnel1
+        const _tunnel1 = textureloader.load("data/tunnel.png");
+        const tunnel1 = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _tunnel1
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tunnel1.rotation.x = -Math.PI/2;
+        tunnel1.position.set(startPoint.x+100, 2, startPoint.z-1450);
+        this.tunnel1=tunnel1;
+        this._scene.add(this.tunnel1);
+        const tunnel1BoundingBox = new THREE.Box3();
+        const tunnel1MinX = tunnel1.position.x + offsetX / 4;
+        const tunnel1MinY = tunnel1.position.y;
+        const tunnel1MinZ = tunnel1.position.z - offsetZ;
+        const tunnel1MaxX = tunnel1.position.x + (offsetX * 2);
+        const tunnel1MaxY = tunnel1.position.y + offsetY;
+        const tunnel1MaxZ = tunnel1.position.z + offsetZ / 2;
+        tunnel1BoundingBox.set(
+            new THREE.Vector3(tunnel1MinX, tunnel1MinY, tunnel1MinZ),
+            new THREE.Vector3(tunnel1MaxX, tunnel1MaxY, tunnel1MaxZ)
+        );
+        this.tunnel1BoundingBox = tunnel1BoundingBox;
+        this._scene.add(new THREE.Box3Helper(tunnel1BoundingBox, 0x0000ff));
+
+        //tunnel2
+        const _tunnel2 = textureloader.load("data/tunnel.png");
+        const tunnel2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _tunnel2
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tunnel2.rotation.x = -Math.PI/2;
+        tunnel2.position.set(startPoint.x+1300, 1, startPoint.z-1450);
+        this.tunnel2=tunnel2;
+        this._scene.add(this.tunnel2);
+        const tunnel2BoundingBox = new THREE.Box3();
+        const tunnel2MinX = tunnel2.position.x + offsetX / 4;
+        const tunnel2MinY = tunnel2.position.y;
+        const tunnel2MinZ = tunnel2.position.z - offsetZ;
+        const tunnel2MaxX = tunnel2.position.x + (offsetX * 2);
+        const tunnel2MaxY = tunnel2.position.y + offsetY;
+        const tunnel2MaxZ = tunnel2.position.z + offsetZ / 2;
+        tunnel2BoundingBox.set(
+            new THREE.Vector3(tunnel2MinX, tunnel2MinY, tunnel2MinZ),
+            new THREE.Vector3(tunnel2MaxX, tunnel2MaxY, tunnel2MaxZ)
+        );
+        this.tunnel2BoundingBox = tunnel2BoundingBox;
+        this._scene.add(new THREE.Box3Helper(tunnel2BoundingBox, 0x0000ff));
+
+        //tunnel3
+        const _tunnel3 = textureloader.load("data/tunnel.png");
+        const tunnel3 = new THREE.Mesh(
+            new THREE.PlaneGeometry(300,300),
+            new THREE.MeshStandardMaterial({
+                map: _tunnel3
+                ,transparent: true, opacity: 1.0, color: 'fffff'
+            })
+        );
+        tunnel3.rotation.x = -Math.PI/2;
+        tunnel3.position.set(startPoint.x+1500, 1, startPoint.z-300);
+        this.tunnel3=tunnel3;
+        this._scene.add(this.tunnel3);
+        const tunnel3BoundingBox = new THREE.Box3();
+        const tunnel3MinX = tunnel3.position.x + offsetX / 4;
+        const tunnel3MinY = tunnel3.position.y;
+        const tunnel3MinZ = tunnel3.position.z - offsetZ;
+        const tunnel3MaxX = tunnel3.position.x + (offsetX * 2);
+        const tunnel3MaxY = tunnel3.position.y + offsetY;
+        const tunnel3MaxZ = tunnel3.position.z + offsetZ / 2;
+        tunnel3BoundingBox.set(
+            new THREE.Vector3(tunnel3MinX, tunnel3MinY, tunnel3MinZ),
+            new THREE.Vector3(tunnel3MaxX, tunnel3MaxY, tunnel3MaxZ)
+        );
+        this.tunnel3BoundingBox = tunnel3BoundingBox;
+        this._scene.add(new THREE.Box3Helper(tunnel3BoundingBox, 0x0000ff));
 
 
         new THREE.GLTFLoader().load("data/subway.glb", (gltf) => {
@@ -695,6 +751,8 @@ class App {
 
             const box = (new THREE.Box3).setFromObject(model);
             model.position.y = (box.max.y - box.min.y) / 2;
+            this.modelBoundingBox = box;
+            console.log("MODEL", box);
 
             const axisHelper = new THREE.AxesHelper(1000);
             this._scene.add(axisHelper);
@@ -703,6 +761,10 @@ class App {
             this._scene.add(boxHelper);          
             this._boxHelper = boxHelper;
             this._model = model;  
+
+            const modelBoundingBox = new THREE.Box3().setFromObject(model);
+            this._modelBoundingBox = modelBoundingBox;
+
         });
     }
 
@@ -811,6 +873,11 @@ class App {
             this._boxHelper.update();
         }
 
+        if(this._modelBoundingBox) {
+            this._modelBoundingBox = new THREE.Box3().setFromObject(this._model);
+            // this._modelBoundingBoxHelper.update();
+        }
+
         if(this._mixer) {
             const deltaTime = time - this._previousTime;
             this._mixer.update(deltaTime);
@@ -859,6 +926,48 @@ class App {
                 this._model.position.y,
                 this._model.position.z,
             );            
+
+            // 게임 시작 관련
+            if(this.tunnelBoundingBox && this._modelBoundingBox) {
+                // console.log("tunnelBoundingBox", this.tunnelBoundingBox);
+                // console.log("modelBoundingBox", this._modelBoundingBox);
+                const isCollision = this.tunnelBoundingBox.intersectsBox(this._modelBoundingBox);
+                if(isCollision) {
+                    console.log('Tunnel With Model');
+                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/chromeGame/chromeGame.html", 500);
+                }
+            }
+
+            if(this.tunnel1BoundingBox && this._modelBoundingBox) {
+                // console.log("tunnel1BoundingBox", this.tunnel1BoundingBox);
+                // console.log("modelBoundingBox", this._modelBoundingBox);
+                const isCollision = this.tunnel1BoundingBox.intersectsBox(this._modelBoundingBox);
+                if(isCollision) {
+                    console.log('Tunnel 1 With Model');
+                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/quizGame/quizGame.html", 500);
+                }
+            }
+
+            if(this.tunnel2BoundingBox && this._modelBoundingBox) {
+                // console.log("tunnel2BoundingBox", this.tunnel2BoundingBox);
+                // console.log("modelBoundingBox", this._modelBoundingBox);
+                const isCollision = this.tunnel2BoundingBox.intersectsBox(this._modelBoundingBox);
+                if(isCollision) {
+                    console.log('Tunnel 2 With Model');
+                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerGame.html", 500);
+                }
+            }
+
+            if(this.tunnel3BoundingBox && this._modelBoundingBox) {
+                // console.log("tunnel3BoundingBox", this.tunnel3BoundingBox);
+                // console.log("modelBoundingBox", this._modelBoundingBox);
+                const isCollision = this.tunnel3BoundingBox.intersectsBox(this._modelBoundingBox);
+                if(isCollision) {
+                    console.log('Tunnel 3 With Model');
+                }
+            }
+
+
 
             // this._model 과 this._bus 의 거리가 가까워지면 버스가 출발하도록
             if(this._model && this._bus) {
