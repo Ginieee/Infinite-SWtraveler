@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <div id="webcam">
+
+      <div id="camera-container">
+          <video autoplay="true" id="videoElement">
+        
+          </video>
+      </div>
+      <div class="camera-div">
+        <button class="camera-button" onclick="btnClick()">
+          <img src="images/icons/camera.png" alt="카메라 아이콘">
+        </button>
+        <div class="timer-div">
+          <h2 class="timer">3</h2>
+          <h2 class="timer">2</h2>
+          <h2 class="timer">1</h2>
+        </div>
+      </div>
+
+      <div class="captured-list">
+        <div class="captured-div">
+          <p class="description">사진을 찍어 추가해주세요 !</p>
+        </div>
+        <div class="captured-div">
+          <p class="description">사진을 찍어 추가해주세요 !</p>
+        </div>
+        <div class="captured-div">
+          <p class="description">사진을 찍어 추가해주세요 !</p>
+        </div>
+        <div class="captured-div">
+          <p class="description">사진을 찍어 추가해주세요 !</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="spinner" style="display: none;">
+      <i class="fas fa-spinner fa-10x fa-spin spinner"></i>
+    </div>
+
+    <div class="photo-container">
+      <div class="photo-grid">
+        <img class="photo"></img>
+        <img class="photo"></img>
+        <img class="photo"></img>
+        <img class="photo"></img>
+      </div>
+       <button class="back-button" style="display: none" onclick="backToGame()">게임으로 돌아가기</button>
+    </div>
+
+   
+
+    <script src="index.js"></script>
+  </body>
+
+  <script>
+  var video = document.querySelector("#videoElement");
+   
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        video.srcObject = stream;
+      })
+      .catch(function (error) {
+        console.log("Something went wrong!");
+      });
+  }
+  </script>
+</html>
