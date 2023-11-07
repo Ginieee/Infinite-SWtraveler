@@ -15,6 +15,15 @@ class App {
         const scene = new THREE.Scene();
         this._scene = scene;
 
+        if (localStorage.getItem("stage") == null) {
+            localStorage.setItem("stage", "chromeGame");
+        }
+
+        if (localStorage.getItem("positionX") == null && localStorage.getItem("poistionZ") == null) {
+            localStorage.setItem("positionX", "-1000");
+            localStorage.setItem("positionZ", "1300");
+        }
+        
         this._setupCamera();
         this._setupLight();
         this._setupModel();
@@ -932,8 +941,11 @@ class App {
                 // console.log("tunnelBoundingBox", this.tunnelBoundingBox);
                 // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnelBoundingBox.intersectsBox(this._modelBoundingBox);
-                if(isCollision) {
+                if(isCollision && localStorage.getItem("stage") == "chromeGame") {
                     console.log('Tunnel With Model');
+                    localStorage.setItem("positionX", this._model.position.x);
+                    localStorage.setItem("positionZ", this._model.position.z);
+                    localStorage.setItem("stage", "quizGame");
                     setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/chromeGame/chromeGame.html", 500);
                 }
             }
@@ -942,8 +954,11 @@ class App {
                 // console.log("tunnel1BoundingBox", this.tunnel1BoundingBox);
                 // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel1BoundingBox.intersectsBox(this._modelBoundingBox);
-                if(isCollision) {
+                if(isCollision && localStorage.getItem("stage") == "quizGame") {
                     console.log('Tunnel 1 With Model');
+                    localStorage.setItem("positionX", this._model.position.x);
+                    localStorage.setItem("positionZ", this._model.position.z);
+                    localStorage.setItem("stage", "burgerGame");
                     setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/quizGame/quizGame.html", 500);
                 }
             }
@@ -952,8 +967,11 @@ class App {
                 // console.log("tunnel2BoundingBox", this.tunnel2BoundingBox);
                 // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel2BoundingBox.intersectsBox(this._modelBoundingBox);
-                if(isCollision) {
+                if(isCollision && localStorage.getItem("stage") == "burgerGame") {
                     console.log('Tunnel 2 With Model');
+                    localStorage.setItem("positionX", this._model.position.x)
+                    localStorage.setItem("positionZ", this._model.position.z)
+					localStorage.setItem("stage", "photo");
                     setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerGame.html", 500);
                 }
             }
@@ -962,8 +980,12 @@ class App {
                 // console.log("tunnel3BoundingBox", this.tunnel3BoundingBox);
                 // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel3BoundingBox.intersectsBox(this._modelBoundingBox);
-                if(isCollision) {
+                if(isCollision && localStorage.getItem("stage") == "photo") {
                     console.log('Tunnel 3 With Model');
+                    localStorage.setItem("positionX", this._model.position.x)
+                    localStorage.setItem("positionZ", this._model.position.z)
+					localStorage.setItem("stage", "photo");
+                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/photo/index.html", 500);
                 }
             }
 
