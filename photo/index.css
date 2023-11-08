@@ -112,7 +112,9 @@ video{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #FFF7D2;
+  background-image: url('./images/photo_frame.png');
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 50vw;
   height: 60vh;
 }
