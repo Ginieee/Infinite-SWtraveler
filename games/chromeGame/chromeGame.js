@@ -19,7 +19,7 @@ const JUMP_1 = 1;
 const JUMP_2 = 2;
 const JUMP_3 = 3;
 
-const speed = 3.0;
+const speed = 1.0;
 
 let pinwheelList = [];
 let pinwheelOriginY = 2.1;

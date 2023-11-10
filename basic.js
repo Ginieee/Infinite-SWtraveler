@@ -19,12 +19,14 @@ class App {
             localStorage.setItem("stage", "chromeGame");
         }
 
+        // 모델 포지션 캐시값 설정
         if (localStorage.getItem("positionX") == null && localStorage.getItem("poistionZ") == null) {
             localStorage.setItem("positionX", "-1000");
             localStorage.setItem("positionZ", "1300");
         }
         
         this._setupCamera();
+        this._setupAudio();
         this._setupLight();
         this._setupModel();
         this._setupControls();
@@ -33,6 +35,20 @@ class App {
         this.resize();
 
         requestAnimationFrame(this.render.bind(this));
+    }
+
+    _setupAudio() {
+        const listener = new THREE.AudioListener();
+        this._camera.add(listener);
+
+        const sound = new THREE.Audio(listener);
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load("data/bgm.mp3", (buffer) => {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0.05);
+            sound.play();
+        });
     }
 
     _setupControls() {
@@ -55,6 +71,8 @@ class App {
         });
     }
     
+
+    // 애니메이션 처리
     _processAnimation() {
         const previousAnimationAction = this._currentAnimationAction;
 
@@ -62,10 +80,10 @@ class App {
             if(this._pressedKeys["shift"]) {
                 this._currentAnimationAction = this._animationMap["Run"];
                 // this._speed = 350;
-                this._maxSpeed = 350;
+                this._maxSpeed = 250;
                 this._acceleration = 3;                
             } else {
-                this._currentAnimationAction = this._animationMap["Walk"];                
+                this._currentAnimationAction = this._animationMap["Run"];                
                 //this._speed = 80;
                 this._maxSpeed = 80;
                 this._acceleration = 3;
@@ -83,14 +101,21 @@ class App {
         }
     }
 
+    // 모델 설정
     _setupModel() {
-        const planeGeometry = new THREE.PlaneGeometry(4000, 3000);
-        const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x878787 });
-        const mesh = []
+        const planeGeometry = new THREE.PlaneGeometry(10000, 10000);
+        const loader = new THREE.TextureLoader();
         // set floor with data/map.jpeg
+        // repeat texture
         const map = new THREE.MeshPhongMaterial({
-            map: new THREE.TextureLoader().load("data/map.jpeg")
+            map: loader.load("data/map.jpeg")
         });
+        map.map.wrapS = THREE.RepeatWrapping;
+        map.map.wrapT = THREE.RepeatWrapping;
+        map.map.repeat.set(10, 10);
+
+        this._scene.background = loader.load("data/map.jpeg")
+        this._night = loader.load("data/night.png");
      
         const plane = new THREE.Mesh(planeGeometry, map);
         plane.rotation.x = -Math.PI/2;
@@ -100,7 +125,6 @@ class App {
         const textureloader = new THREE.TextureLoader();
         const startPoint = new THREE.Vector3(-1000, 0, 1300);
         const aiPoint = new THREE.Vector3(-300, 0, -450);
-        const gachonPoint = new THREE.Vector3(200, 0, 600);
 
         //ch1
         const ch_1 = textureloader.load("data/ch1.png");
@@ -466,7 +490,7 @@ class App {
             new THREE.Vector3(tunnelMaxX, tunnelMaxY, tunnelMaxZ)
         );
         this.tunnelBoundingBox = tunnelBoundingBox;
-        this._scene.add(new THREE.Box3Helper(tunnelBoundingBox, 0x0000ff));
+        // this._scene.add(new THREE.Box3Helper(tunnelBoundingBox, 0x0000ff));
 
 
         //tunnel1
@@ -494,7 +518,7 @@ class App {
             new THREE.Vector3(tunnel1MaxX, tunnel1MaxY, tunnel1MaxZ)
         );
         this.tunnel1BoundingBox = tunnel1BoundingBox;
-        this._scene.add(new THREE.Box3Helper(tunnel1BoundingBox, 0x0000ff));
+        // this._scene.add(new THREE.Box3Helper(tunnel1BoundingBox, 0x0000ff));
 
         //tunnel2
         const _tunnel2 = textureloader.load("data/tunnel.png");
@@ -521,7 +545,7 @@ class App {
             new THREE.Vector3(tunnel2MaxX, tunnel2MaxY, tunnel2MaxZ)
         );
         this.tunnel2BoundingBox = tunnel2BoundingBox;
-        this._scene.add(new THREE.Box3Helper(tunnel2BoundingBox, 0x0000ff));
+        // this._scene.add(new THREE.Box3Helper(tunnel2BoundingBox, 0x0000ff));
 
         //tunnel3
         const _tunnel3 = textureloader.load("data/tunnel.png");
@@ -548,7 +572,7 @@ class App {
             new THREE.Vector3(tunnel3MaxX, tunnel3MaxY, tunnel3MaxZ)
         );
         this.tunnel3BoundingBox = tunnel3BoundingBox;
-        this._scene.add(new THREE.Box3Helper(tunnel3BoundingBox, 0x0000ff));
+        // this._scene.add(new THREE.Box3Helper(tunnel3BoundingBox, 0x0000ff));
 
 
         new THREE.GLTFLoader().load("data/subway.glb", (gltf) => {
@@ -565,18 +589,23 @@ class App {
             subway.position.y = (box.max.y - box.min.y) / 2;
 
             subway.scale.set(20, 20, 20);
-            subway.position.x = startPoint.x;
+
+            if (localStorage.getItem("subway") == "clear") {
+                subway.position.x = 4000;
+            } else {
+                subway.position.x = startPoint.x;
+            }
             subway.position.z = startPoint.z + 100;
 
             subway.rotation.y = Math.PI / 2;
 
             const boxHelper = new THREE.BoxHelper(subway);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_subway = boxHelper;
             this._subway = subway;
         });
 
-        new THREE.GLTFLoader().load("data/bus.glb", (gltf) => {
+        new THREE.GLTFLoader().load("data/mudang_ex.glb", (gltf) => {
             const bus = gltf.scene;
             this._scene.add(bus);
 
@@ -587,16 +616,21 @@ class App {
             });
 
             const box = (new THREE.Box3).setFromObject(bus);
-            bus.position.y = (box.max.y - box.min.y) / 2;
+            bus.position.y = 50;
 
-            bus.scale.set(30, 30, 30);
-            bus.position.x = startPoint.x + 100;
+            bus.scale.set(5, 5, 5);
+
+            if (localStorage.getItem("bus") == "clear") {
+                bus.position.x = 4000;
+            } else {
+                bus.position.x = startPoint.x + 100;
+            }
             bus.position.z = startPoint.z - 800;
 
             bus.rotation.y = Math.PI / 2;
 
             const boxHelper = new THREE.BoxHelper(bus);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_bus = boxHelper;
             this._bus = bus;
         });
@@ -622,7 +656,7 @@ class App {
             busStop.rotation.y = Math.PI;
 
             const boxHelper = new THREE.BoxHelper(busStop);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_busStop = boxHelper;
             this._busStop = busStop;
         });
@@ -639,7 +673,12 @@ class App {
 
             const box = (new THREE.Box3).setFromObject(artBuilding);
             this._artUpperBound = (box.max.y - box.min.y) / 2;
-            artBuilding.position.y = -100;
+            
+            if (localStorage.getItem("artBuilding") == "clear") {
+                artBuilding.position.y = this._artUpperBound;
+            } else {
+                artBuilding.position.y = -100;
+            }
 
             artBuilding.scale.set(6, 6, 6);
             artBuilding.position.x = startPoint.x - 500;
@@ -648,7 +687,7 @@ class App {
             artBuilding.rotation.y = - Math.PI / 3;
 
             const boxHelper = new THREE.BoxHelper(artBuilding);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_artBuilding = boxHelper;
             this._artBuilding = artBuilding;
         });
@@ -666,7 +705,12 @@ class App {
             });
 
             const box = (new THREE.Box3).setFromObject(aiBuilding);
-            aiBuilding.position.y = 30;
+
+            if (localStorage.getItem("aiBuilding") == "clear") {
+                aiBuilding.position.y = -200;
+            } else {
+                aiBuilding.position.y = 30;
+            }
 
             aiBuilding.scale.set(0.3, 0.3, 0.3);
             aiBuilding.position.x = startPoint.x+300;
@@ -675,7 +719,7 @@ class App {
             aiBuilding.rotation.y = Math.PI;
 
             const boxHelper = new THREE.BoxHelper(aiBuilding);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_aiBuilding = boxHelper;
             this._aiBuilding = aiBuilding;
         });
@@ -695,14 +739,58 @@ class App {
             aiCube.scale.set(1, 1, 1);
             aiCube.position.x = startPoint.x+330;
             aiCube.position.z = startPoint.z-1820;
-            aiCube.position.y = 90;
 
+            if (localStorage.getItem("aiBuilding") == "clear") {
+                aiCube.position.y = -200;
+            } else {
+                aiCube.position.y = 90;
+            }
             aiCube.rotation.y = Math.PI;
 
             const boxHelper = new THREE.BoxHelper(aiCube);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_aiCube = boxHelper;
             this._aiCube = aiCube;
+        });
+
+        new THREE.GLTFLoader().load("data/character.glb", (gltf) => {
+            const study = gltf.scene;
+            this._scene.add(study);
+
+            study.traverse(child => {
+                if(child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(study);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._studyMixer = mixer;
+            this._studyAnimationMap = animationsMap;
+            this._currentStudyAnimationAction = this._studyAnimationMap["Study_2"];
+            this._currentStudyAnimationAction.play();
+
+            study.scale.set(10, 10, 10);
+            study.position.x = startPoint.x+450;
+            study.position.z = startPoint.z-1800;
+
+            if (localStorage.getItem("study") == "clear") {
+                study.position.y = 0;
+            } else {
+                study.position.y = -200;
+            }
+
+            const boxHelper = new THREE.BoxHelper(study);
+            // this._scene.add(boxHelper);
+            this._boxHelper_study = boxHelper;
+            this._study = study;
         });
 
         new THREE.GLTFLoader().load("data/building_gachon.glb", (gltf) => {
@@ -725,9 +813,59 @@ class App {
             gachonBuilding.rotation.y = Math.PI / 6;
 
             const boxHelper = new THREE.BoxHelper(gachonBuilding);
-            this._scene.add(boxHelper);
+            // this._scene.add(boxHelper);
             this._boxHelper_gachonBuilding = boxHelper;
             this._gachonBuilding = gachonBuilding;
+        });
+
+        new THREE.GLTFLoader().load("data/infinity.glb", (gltf) => {
+            const infinity = gltf.scene;
+            this._scene.add(infinity);
+
+            infinity.traverse(child => {
+                if(child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const box = (new THREE.Box3).setFromObject(infinity);
+            infinity.position.y = (box.max.y - box.min.y) / 2;
+
+            infinity.scale.set(35, 35, 35);
+            infinity.position.x = startPoint.x+2000;
+            infinity.position.z = startPoint.z-500;
+
+            infinity.rotation.y = Math.PI / 6;
+
+            const boxHelper = new THREE.BoxHelper(infinity);
+            // this._scene.add(boxHelper);
+            this._boxHelper_infinity = boxHelper;
+            this._infinity = infinity;
+        });
+
+        new THREE.GLTFLoader().load("data/cafeteria.glb", (gltf) => {
+            const cafeteria = gltf.scene;
+            this._scene.add(cafeteria);
+
+            cafeteria.traverse(child => {
+                if(child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const box = (new THREE.Box3).setFromObject(cafeteria);
+            cafeteria.position.y = (box.max.y - box.min.y) / 2;
+
+            cafeteria.scale.set(20, 20, 20);
+            cafeteria.position.x = startPoint.x+1200;
+            cafeteria.position.z = startPoint.z-1820;
+
+            cafeteria.rotation.y = - Math.PI / 6;
+
+            const boxHelper = new THREE.BoxHelper(cafeteria);
+            // this._scene.add(boxHelper);
+            this._boxHelper_cafeteria = boxHelper;
+            this._cafeteria = cafeteria;
         });
 
         new THREE.GLTFLoader().load("data/character.glb", (gltf) => {
@@ -754,20 +892,24 @@ class App {
             this._currentAnimationAction = this._animationMap["Idle"];
             this._currentAnimationAction.play();
 
-            model.scale.set(0.3, 0.3, 0.3);
-            model.position.x = startPoint.x;
-            model.position.z = startPoint.z;
+            console.log(localStorage.getItem("positionX"));
+            console.log(localStorage.getItem("positionZ"));
+
+            model.scale.set(8, 8, 8);
+            
+            // 소수점 첫째까지만 저장
+            model.position.x = parseFloat(localStorage.getItem("positionX")) + 100;
+            model.position.z = parseFloat(localStorage.getItem("positionZ")) + 100;
 
             const box = (new THREE.Box3).setFromObject(model);
-            model.position.y = (box.max.y - box.min.y) / 2;
-            this.modelBoundingBox = box;
+            model.position.y = 0;
             console.log("MODEL", box);
 
             const axisHelper = new THREE.AxesHelper(1000);
-            this._scene.add(axisHelper);
+            // this._scene.add(axisHelper);
 
             const boxHelper = new THREE.BoxHelper(model);
-            this._scene.add(boxHelper);          
+            // this._scene.add(boxHelper);          
             this._boxHelper = boxHelper;
             this._model = model;  
 
@@ -791,7 +933,7 @@ class App {
 
     _addPointLight(x, y, z, helperColor) {
         const color = 0xffffff;
-        const intensity = 0.2;
+        const intensity = 0.5;
     
         const pointLight = new THREE.PointLight(color, intensity, 2000);
         pointLight.position.set(x, y, z);
@@ -799,23 +941,25 @@ class App {
         this._scene.add(pointLight);
     
         const pointLightHelper = new THREE.PointLightHelper(pointLight, 10, helperColor);
-        this._scene.add(pointLightHelper);
+        // this._scene.add(pointLightHelper);
+
+        return pointLight;
     }
 
     _setupLight() {
         const ambientLight = new THREE.AmbientLight(0xffffff, .5);
         this._scene.add(ambientLight);
 
-        this._addPointLight(1000, 750, 1000, 0xff0000);
-        this._addPointLight(-1000, 750, 1000, 0xffff00);
-        this._addPointLight(-1000, 750, -1000, 0x00ff00);
-        this._addPointLight(1000, 750, -1000, 0x0000ff);
+        this._ligth1 = this._addPointLight(1000, 750, 1000, 0xff0000);
+        this._ligth2 = this._addPointLight(-1000, 750, 1000, 0xffff00);
+        this._ligth3 = this._addPointLight(-1000, 750, -1000, 0x00ff00);
+        this._ligth4 = this._addPointLight(1000, 750, -1000, 0x0000ff);
 
         const shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
         shadowLight.position.set(600, 2000, 600);
         shadowLight.target.position.set(0, 0, 0);
         const directionalLightHelper = new THREE.DirectionalLightHelper(shadowLight, 10);
-        this._scene.add(directionalLightHelper);
+        // this._scene.add(directionalLightHelper);
         
         this._scene.add(shadowLight);
         this._scene.add(shadowLight.target);
@@ -829,7 +973,7 @@ class App {
         shadowLight.shadow.camera.far = 2500;
         shadowLight.shadow.radius = 5;
         const shadowCameraHelper = new THREE.CameraHelper(shadowLight.shadow.camera);
-        this._scene.add(shadowCameraHelper);
+        // this._scene.add(shadowCameraHelper);
     }    
 
     _previousDirectionOffset = 0;
@@ -870,8 +1014,11 @@ class App {
     _acceleration = 0;
     _buildingMoveY = 0.5;
     _buildingAcceleration = 0.01;
-    _cameraHold = new THREE.Vector3(0, 150, 400);
+    _cameraHold = new THREE.Vector3(0, 120, 200);
     _isHold = true;
+
+    _subwayFlag = true;
+    _subwaySpeed = 1;
 
     update(time) {
         time *= 0.001; // second unit
@@ -890,12 +1037,7 @@ class App {
         if(this._mixer) {
             const deltaTime = time - this._previousTime;
             this._mixer.update(deltaTime);
-
-            if (this._isHold && this._model.position.x < -1200 && this._cameraHold.x > -700) {
-                this._cameraHold.x -= 2;
-            } else if(this._isHold && this._model.position.x > -1200 && this._cameraHold.x < 0){
-                this._cameraHold.x += 2;
-            }
+            this._studyMixer.update(deltaTime);
 
             const angleCameraDirectionAxisY = Math.atan2(
                 (this._camera.position.x - this._model.position.x),
@@ -934,7 +1076,13 @@ class App {
                 this._model.position.x,
                 this._model.position.y,
                 this._model.position.z,
-            );            
+            );
+            
+            if (localStorage.getItem("stage") == "photo" && this._ligth2.intensity > 0) {
+                this._ligth2.intensity -= 0.001;
+                this._ligth3.intensity -= 0.001;
+                this._ligth4.intensity -= 0.001;
+            }
 
             // 게임 시작 관련
             if(this.tunnelBoundingBox && this._modelBoundingBox) {
@@ -985,7 +1133,7 @@ class App {
                     localStorage.setItem("positionX", this._model.position.x)
                     localStorage.setItem("positionZ", this._model.position.z)
 					localStorage.setItem("stage", "photo");
-                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/photo/index.html", 500);
+                    setTimeout(() => window.location.href = "http://127.0.0.1:5500/photo/index.html", 500);
                 }
             }
 
@@ -1062,6 +1210,44 @@ class App {
                     this._artFlag = true;
                 }
             }
+
+            if(this._model && this._study) {
+                const distance = this._model.position.distanceTo(this._study.position);
+                if(distance < 400) {
+                    this._studyFlag = true;
+                }
+            }
+
+            if(this._model && this._aiBuilding) {
+                const distance = this._model.position.distanceTo(this._aiBuilding.position);
+                if(distance < 400) {
+                    this._aiFlag = true;
+                }
+            }
+
+            if (this._isHold && this._model.position.x < -800) {
+                this._cameraHold.x = (this._model.position.x + 800) / 8;
+            } else if(this._isHold && this._model.position.x > 800){
+                this._cameraHold.x = (this._model.position.x - 800) / 8;
+                if (this._model.position.z > 500 && this._model.position.x > 500) {
+                    this._cameraHold.x = 200
+                    this._cameraHold.y = 100;
+                    this._cameraHold.z = 200;
+                    this._camera.lookAt(this._gachonBuilding.position);
+                } else {
+                    this._cameraHold.set(0, 150, 240);
+                }
+                // set background black
+                if (this._scene.background != this._night) {
+                    this._scene.background = this._night;
+                    this._ligth1.intensity = 0.5;
+                    this._ligth2.intensity = 0.05;
+                    this._ligth3.intensity = 0.05;
+                    this._ligth4.intensity = 0.05;
+                }
+            } else {
+                this._cameraHold.set(0, 150, 240);
+            }
             
             // 카메라가 항상 모델로부터 일정한 거리에 있도록
             if(this._isHold) {
@@ -1071,26 +1257,19 @@ class App {
             }
         }
 
-        if(this._boxHelper_subway) {
-            this._boxHelper_subway.update();
-        }
-
         // move subway to x axis direction with 1 speed
-        if(this._subway) {
-            const moveX = 0.4;
-            this._subway.position.x += moveX;
-        }
+        if(this._subway && this._subwayFlag) {
+            this._subwaySpeed += 0.05;
+            this._subway.position.x += this._subwaySpeed;
 
-        if(this._boxHelper_bus) {
-            this._boxHelper_bus.update();
+            if (this._subway.position.x > 4000) {
+                this._subwayFlag = false;
+                localStorage.setItem("subway", "clear");
+            }
         }
-
-        if(this._boxHelper_artBuilding) {
-            this._boxHelper_artBuilding.update();
-        }        
 
         if(this._bus && this._busFlag) {
-            const moveX = 20;
+            const moveX = 50;
             this._bus.position.x += moveX;
             // 카메라가 버스를 바라보게 회전
             this._camera.lookAt(this._bus.position);
@@ -1099,6 +1278,7 @@ class App {
                 this._busFlag = false;
                 this._isHold = true;
                 this.p = false; //완료
+                localStorage.setItem("bus", "clear");
             }
         }
 
@@ -1120,12 +1300,35 @@ class App {
             if(this._artBuilding.position.y > this._artUpperBound) {
                 this._artFlag = false;
                 this._buildingMoveY = 0.5;
+                localStorage.setItem("artBuilding", "clear");
                 console.log("artBuilding 완료")
-                //setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/burgerGame/burgerStack.html", 3000)
-                // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/chromeGame/chromeGame.html", 3000)
-                // setTimeout(() => window.location.href = "http://127.0.0.1:5500/games/quizGame/quizGame.html", 3000)
             } else {
                 this._artBuilding.position.y += Math.pow(this._buildingMoveY, 2);
+                this._buildingMoveY += this._buildingAcceleration;
+            }
+        }
+
+        if(this._study && this._studyFlag) {
+            if(this._study.position.y > 0) {
+                this._studyFlag = false;
+                this._buildingMoveY = 0.5; 
+                localStorage.setItem("study", "clear");
+                console.log("study 완료")
+            } else {
+                this._study.position.y += Math.pow(this._buildingMoveY, 2);
+                this._buildingMoveY += this._buildingAcceleration;
+            }
+        }
+
+        if(this._aiBuilding && this._aiFlag) {
+            if(this._aiBuilding.position.y < -300) {
+                this._aiFlag = false;
+                this._buildingMoveY = 0.5; 
+                localStorage.setItem("aiBuilding", "clear");
+                console.log("aiBuilding 완료")
+            } else {
+                this._aiBuilding.position.y -= Math.pow(this._buildingMoveY, 2);
+                this._aiCube.position.y -= Math.pow(this._buildingMoveY, 2);
                 this._buildingMoveY += this._buildingAcceleration;
             }
         }
