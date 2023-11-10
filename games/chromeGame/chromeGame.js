@@ -477,6 +477,7 @@ function animate() {
   renderer.render(scene, camera);
 
   if (isGamePlaying) {
+    document.getElementById("start-info").style.display = "none";
     if (isModelRunning) {
       model.position.z -= 0.1;
       camera.position.z -= 0.1;

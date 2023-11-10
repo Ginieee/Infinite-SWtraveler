@@ -376,16 +376,16 @@ function animate() {
       gameOver();
     }
 
-    burgerList[nowIdx].position.z += 4.5;
+    burgerList[nowIdx].position.z += 2.7;
     if (currentDirection) {
-      burgerList[nowIdx].position.x -= 8.5;
+      burgerList[nowIdx].position.x -= 5.1;
       if (burgerList[nowIdx].position.x <= -offsetX) {
         console.log("게임오버");
         isGamePlaying = false;
         gameOver();
       }
     } else {
-      burgerList[nowIdx].position.x += 8.5;
+      burgerList[nowIdx].position.x += 5.1;
       if (burgerList[nowIdx].position.x >= offsetX) {
         console.log("게임오버");
         isGamePlaying = false;
