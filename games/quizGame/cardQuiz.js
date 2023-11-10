@@ -8,47 +8,50 @@ let isGamePlaying = false;
 let currentQuizIndex = 0;
 let nowQuiz;
 
+let orbitControls;
+
 const Quiz = [
   {
-    question: "문제1",
+    question: "Mudang is stop when the weather is...",
     choice: [
       {
-        text: "1-1",
+        text: "Hot",
         isCorrect: false
       },
       {
-        text: "1-2",
+        text: "Rainy",
         isCorrect: true
       },
     ]
   },
   {
-    question: "문제2",
+    question: "In Gachon University, there is a . . .",
     choice: [
       {
-        text: "2-1",
+        text: "School shuttle bus\nnamed 'Infinity'",
         isCorrect: false
       },
       {
-        text: "2-2",
+        text: "Statue that\nsymbolizes 'Infinity.'",
         isCorrect: true
       },
     ]
   },
   {
-    question: "문제3",
+    question: "What is correct about the AI/SW department?",
     choice: [
       {
-        text: "3-1",
+        text: "Both departments\nshare a common curriculum.",
         isCorrect: true
       },
       {
-        text: "3-2",
+        text: "The SW department was\nestablished in 2020.",
         isCorrect: false
       },
     ]
   },
-]
+];
+
 
 
 window.addEventListener('load', function() {
@@ -81,6 +84,18 @@ function init() {
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.set(0, 5, 5);
 
+  // // CONTROLS
+  // orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+  // orbitControls.enableDamping = true;
+  // orbitControls.minDistance = 15;
+  // orbitControls.maxPolarAngle = Math.PI;
+  // orbitControls.enablePan = false;
+  // orbitControls.autoRotate = true;
+  // orbitControls.autoRotateSpeed = 7;
+  // orbitControls.update();
+
+  generateBackground();
+
   generatePlane();
   generateLight();
   generateButtons();
@@ -90,6 +105,16 @@ function init() {
   generateAnswers();
 
   animate();
+}
+
+function generateBackground() {
+  new THREE.GLTFLoader().load('../../data/games/background_planet/scene.gltf', function(gltf) {
+    const background = gltf.scene;
+    background.scale.set(250.0, 250.0, 250.0);
+    background.position.set(0, 10, 0);
+    scene.add(background);
+    console.log(background);
+  });
 }
 
 function generateQuestion() {
@@ -246,7 +271,7 @@ function generateButtons() {
   const repeatY = 4; // Y 방향으로 4번 반복
   texture.repeat.set(repeatX, repeatY);
 
-  const geometry = new THREE.BoxGeometry(6, 6, 0.4, 50, 50, 50);
+  const geometry = new THREE.BoxGeometry(15, 6, 0.4, 50, 50, 50);
   const material = new THREE.MeshStandardMaterial({
     map: texture, // 텍스처를 머티리얼에 추가
     side: THREE.DoubleSide
@@ -260,8 +285,8 @@ function generateButtons() {
   button1.name = 'button1';
   button2.name = 'button2';
 
-  button1.position.set(-5, 0, 5);
-  button2.position.set(5, 0, 5);
+  button1.position.set(-8, 0, 5);
+  button2.position.set(8, 0, 5);
 
   scene.add(button1, button2);
 }
@@ -285,7 +310,11 @@ function generateLight() {
   directionLight.shadow.camera.near = 0.1;
   directionLight.shadow.camera.far = 30;
 
-  scene.add(directionLight);
+  const directionLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+  directionLight2.position.set(0, 0, 15);
+  directionLight2.castShadow = false;
+
+  scene.add(directionLight, directionLight2);
 }
 
 function handleResize() {
@@ -335,7 +364,7 @@ function onDocumentClick(event) {
 
       // 카메라를 게임 화면으로 이동
       new TWEEN.Tween(camera.position)
-        .to({ x: 0, y: 3, z: 17 }, 1000)
+        .to({ x: 0, y: 3, z: 25 }, 1000)
         .easing(TWEEN.Easing.Quadratic.InOut)
         .onComplete(() => {
           if (startText) {
@@ -430,7 +459,8 @@ function playGame() {
       size: 1.2, // Adjust the size of the question text as needed
       height: 0.2,
       curveSegments: 12,
-      bevelEnabled: false
+      bevelEnabled: false,
+      
     });
 
     // Compute the centering for the question text
@@ -447,7 +477,7 @@ function playGame() {
 
     question = new THREE.Mesh(geometry, material);
     question.castShadow = true;
-    question.position.set(0, 5, -13); // Adjust the position of the question text
+    question.position.set(0, 8, -13); // Adjust the position of the question text
 
     scene.add(question);
   });
@@ -487,6 +517,15 @@ function playGame() {
     // Position the text above the button's center (adjust positions as needed)
     text1.position.set(button1.position.x, button1.position.y + 2, button1.position.z - 1);
     text2.position.set(button2.position.x, button2.position.y + 2, button2.position.z - 1);
+
+    // 텍스트의 중심을 정렬하여 위치 조정
+    choice1Geometry.computeBoundingBox();
+    const text1Width = choice1Geometry.boundingBox.max.x - choice1Geometry.boundingBox.min.x;
+    text1.position.x -= 0.5 * text1Width;
+
+    choice2Geometry.computeBoundingBox();
+    const text2Width = choice2Geometry.boundingBox.max.x - choice2Geometry.boundingBox.min.x;
+    text2.position.x -= 0.5 * text2Width;
 
     scene.add(text1);
     scene.add(text2);
