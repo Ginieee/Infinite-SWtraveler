@@ -254,8 +254,8 @@ async function generateModel() {
 
   modelBoundingBox = new THREE.Box3().setFromObject(model);
   const mbb = modelBoundingBox.getSize(new THREE.Vector3());
-  modelHelper = new THREE.BoxHelper(model, 0xffff00);
-  scene.add(modelHelper);
+  // modelHelper = new THREE.BoxHelper(model, 0xffff00);
+  // scene.add(modelHelper);
 
   scene.add(model);
   cameraTarget = model.position.clone();
@@ -314,9 +314,9 @@ async function generatePinwheel() {
     pinwheelBoundingBoxList.push(newPinwheelBoundingBox);
     console.log(newPinwheelBoundingBox);
     
-    const pinwheelHelper = new THREE.BoxHelper(newPinwheel, 0xffff00);
-    pinwheelHelperList.push(pinwheelHelper);
-    scene.add(pinwheelHelperList[pinwheelHelperList.length - 1]);
+    // const pinwheelHelper = new THREE.BoxHelper(newPinwheel, 0xffff00);
+    // pinwheelHelperList.push(pinwheelHelper);
+    // scene.add(pinwheelHelperList[pinwheelHelperList.length - 1]);
 
     scene.add(newPinwheel);
   }
@@ -338,9 +338,9 @@ async function generateCube() {
 
   cubeBoundingBox = new THREE.Box3().setFromObject(cube);
     
-  const cubeHelper = cubeBoundingBox.getSize(new THREE.Vector3());
-  const cubeHelperMesh = new THREE.BoxHelper(cube, 0xffff00);
-  scene.add(cubeHelperMesh);
+  // const cubeHelper = cubeBoundingBox.getSize(new THREE.Vector3());
+  // const cubeHelperMesh = new THREE.BoxHelper(cube, 0xffff00);
+  // scene.add(cubeHelperMesh);
 
   scene.add(cube);
 
@@ -400,7 +400,7 @@ function checkPinwheelUp() {
       if (pinwheelList[i].position.y < originY) {
         pinwheelList[i].position.y += 0.2;
         console.log(model.position);
-        pinwheelHelperList[i].update();
+        // pinwheelHelperList[i].update();
         // console.log(pinwheelList[i].position);
         // console.log(model.position);
         // console.log("Pinwheel " + i + " is going up");
@@ -484,7 +484,7 @@ function animate() {
       camera.lookAt(cameraTarget);
 
       modelBoundingBox = new THREE.Box3().setFromObject(model);
-      modelHelper.update();
+      // modelHelper.update();
       // console.log(modelBoundingBox);
       // console.log(model.position);
       // console.log(modelBoundingBox);
