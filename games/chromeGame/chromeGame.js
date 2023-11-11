@@ -11,6 +11,7 @@ let runAction;
 let jumpAction1; 
 let jumpAction2; 
 let jumpAction3; 
+let jumpAction4; 
 
 const clock = new THREE.Clock();
 const IDLE = 0;
@@ -18,8 +19,9 @@ const RUN = 4;
 const JUMP_1 = 1;
 const JUMP_2 = 2;
 const JUMP_3 = 3;
+const JUMP_4 = 5;
 
-const speed = 1.0;
+const speed = 3.0;
 
 let pinwheelList = [];
 let pinwheelOriginY = 2.1;
@@ -30,6 +32,7 @@ const pinwheelZPositions = [
 const pinwheelTextures = [
   '../../data/assets/textures/pinwheel_texture_1.jpg',
   '../../data/assets/textures/pinwheel_texture_2.jpg',
+  '../../data/assets/textures/pinwheel_texture_3.jpg',
   '../../data/assets/textures/pinwheel_texture_4.jpg',
   '../../data/assets/textures/pinwheel_texture_5.jpg',
   '../../data/assets/textures/pinwheel_texture_6.jpg',
@@ -37,7 +40,6 @@ const pinwheelTextures = [
   '../../data/assets/textures/pinwheel_texture_8.jpg',
   '../../data/assets/textures/pinwheel_texture_9.jpg',
   '../../data/assets/textures/pinwheel_texture_10.jpg',
-  '../../data/assets/textures/pinwheel_texture_3.jpg',
 ]
 const pinwheelMeshList = [];
 let pinwheelMaterial;
@@ -192,6 +194,7 @@ async function generateModel() {
     jumpAction1 = mixer.clipAction(gltf.animations[JUMP_1]);
     jumpAction2 = mixer.clipAction(gltf.animations[JUMP_2]);
     jumpAction3 = mixer.clipAction(gltf.animations[JUMP_3]);
+    jumpAction4 = mixer.clipAction(gltf.animations[JUMP_4]);
   
     idleAction.play();
     currentAction = idleAction;
@@ -213,9 +216,9 @@ async function generateModel() {
             isModelJumpBack = false;
             isJumping = true;
             beforeJump = previousAction;
-            const randomJump = (Math.floor(Math.random() * 3) + 1);
+            const randomJump = (Math.floor(Math.random() * 4) + 1);
             console.log(randomJump);
-            currentAction = randomJump === 1 ? jumpAction1 : randomJump === 2 ? jumpAction2 : jumpAction3;
+            currentAction = randomJump === 1 ? jumpAction1 : randomJump === 2 ? jumpAction2 : randomJump === 3 ? jumpAction3 : jumpAction4;
           }
           break;
         case 'Escape':
@@ -392,18 +395,11 @@ function onDocumentClick(event) {
 };
 
 function checkPinwheelUp() {
-  // console.log("Checking pinwheel up");
-  // console.log("Camera position: " + camera.position.z);
-  // console.log("Pinwheel position: " + pinwheelList[0].position.z);
   for (let i = 0; i < pinwheelList.length; i++) {
     if (camera.position.z <= pinwheelList[i].position.z + 5 && camera.position.z > pinwheelList[i].position.z) {
       if (pinwheelList[i].position.y < originY) {
         pinwheelList[i].position.y += 0.2;
         console.log(model.position);
-        // pinwheelHelperList[i].update();
-        // console.log(pinwheelList[i].position);
-        // console.log(model.position);
-        // console.log("Pinwheel " + i + " is going up");
       }
     }
   }
@@ -485,18 +481,9 @@ function animate() {
       camera.lookAt(cameraTarget);
 
       modelBoundingBox = new THREE.Box3().setFromObject(model);
-      // modelHelper.update();
-      // console.log(modelBoundingBox);
-      // console.log(model.position);
-      // console.log(modelBoundingBox);
 
       checkCollision();
       checkPinwheelUp();
-      
-      // cameraTarget.x = model.position.x;
-      // cameraTarget.y = model.position.y;
-      // cameraTarget.z = model.position.z;
-      // orbitControls.target = cameraTarget;
     }
   }
   if (isModelJumping) {
