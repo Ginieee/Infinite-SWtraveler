@@ -878,7 +878,7 @@ class App {
             this._gachonBuilding = gachonBuilding;
         });
 
-        new THREE.GLTFLoader().load("data/infinity_1110.glb", (gltf) => {
+        new THREE.GLTFLoader().load("data/infinity.glb", (gltf) => {
             const infinity = gltf.scene;
             this._scene.add(infinity);
 
