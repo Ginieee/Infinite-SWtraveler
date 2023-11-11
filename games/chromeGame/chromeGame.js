@@ -202,7 +202,7 @@ async function generateModel() {
     window.addEventListener('keydown', (event) => {
       previousAction = currentAction;
       switch (event.key) {
-        case 'Enter':
+        case 'Enter': // start game
           if(!isGamePlaying && !isJumping) {
             isGamePlaying = true;
             isModelRunning = true;
@@ -210,7 +210,7 @@ async function generateModel() {
             currentAction = runAction;
           }
           break;
-        case ' ':
+        case ' ': // jump
           if (!isModelJumping && !isJumping) {
             isModelJumping = true;
             isModelJumpBack = false;
@@ -221,7 +221,7 @@ async function generateModel() {
             currentAction = randomJump === 1 ? jumpAction1 : randomJump === 2 ? jumpAction2 : randomJump === 3 ? jumpAction3 : jumpAction4;
           }
           break;
-        case 'Escape':
+        case 'Escape': // stop game
           if (isGamePlaying && !isJumping) {
             isGamePlaying = false;
             isModelRunning = false;
@@ -255,7 +255,7 @@ async function generateModel() {
     console.log('no animation');
   }
 
-  modelBoundingBox = new THREE.Box3().setFromObject(model);
+  modelBoundingBox = new THREE.Box3().setFromObject(model); // used to check collision
   const mbb = modelBoundingBox.getSize(new THREE.Vector3());
   // modelHelper = new THREE.BoxHelper(model, 0xffff00);
   // scene.add(modelHelper);
@@ -301,17 +301,17 @@ async function generatePinwheel() {
     const pbbOffsety = 2.1;
     const pbbOffsetz = 1;
     const newPinwheelBoundingBox = new THREE.Box3();
-    const minX = 3.5 - pbbOffsetX; // X 최소값
-    const minY = pinwheelUnderY - pbbOffsety; // Y 최소값
-    const minZ = pinwheelZPositions[i] - pbbOffsetz; // Z 최소값
-    const maxX = 3.5 + pbbOffsetX; // X 최대값
-    const maxY = pinwheelUnderY + pbbOffsety; // Y 최대값
-    const maxZ = pinwheelZPositions[i] + pbbOffsetz;  // Z 최대값
+    const minX = 3.5 - pbbOffsetX; // Min X
+    const minY = pinwheelUnderY - pbbOffsety; // Min Y
+    const minZ = pinwheelZPositions[i] - pbbOffsetz; // Min Z
+    const maxX = 3.5 + pbbOffsetX; // Max X
+    const maxY = pinwheelUnderY + pbbOffsety; // Max Y
+    const maxZ = pinwheelZPositions[i] + pbbOffsetz;  // Max Z
 
-    // 직접 값을 설정하여 bounding box 만들기
+    // Create bounding box
     newPinwheelBoundingBox.set(
-      new THREE.Vector3(minX, minY, minZ), // 최소 지점
-      new THREE.Vector3(maxX, maxY, maxZ)  // 최대 지점
+      new THREE.Vector3(minX, minY, minZ),
+      new THREE.Vector3(maxX, maxY, maxZ)
     );
 
     pinwheelBoundingBoxList.push(newPinwheelBoundingBox);
@@ -351,17 +351,18 @@ async function generateCube() {
   const target = initial + 1.0;
   
   const cubeFloat = new TWEEN.Tween({ y: initial })
-  .to({ y: target }, 800) // 움직임의 크기 및 시간 설정
-  .easing(TWEEN.Easing.Quadratic.InOut) // 움직임의 형태 설정
-  .yoyo(true) // 애니메이션을 왕복하도록 설정
-  .repeat(Infinity) // 애니메이션을 계속 반복하도록 설정
+  .to({ y: target }, 800)
+  .easing(TWEEN.Easing.Quadratic.InOut)
+  .yoyo(true)
+  .repeat(Infinity)
   .onUpdate(function (object) {
     cube.position.y = object.y;
   });
 
-  cubeFloat.start(); // 애니메이션 실행
+  cubeFloat.start();
 }
 
+// generate ambient light and directional light
 function generateLight() {
   const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
   scene.add(ambientLight);
@@ -385,7 +386,7 @@ function onDocumentClick(event) {
 
   raycaster = new THREE.Raycaster();
   const mouseVector = new THREE.Vector2(mouseX, mouseY);
-  raycaster.setFromCamera(mouseVector, camera);
+  raycaster.setFromCamera(mouseVector, camera); // to find clicked object
 
   const intersects = raycaster.intersectObjects(scene.children);
   if (intersects.length > 0) {
@@ -396,6 +397,7 @@ function onDocumentClick(event) {
 
 function checkPinwheelUp() {
   for (let i = 0; i < pinwheelList.length; i++) {
+    // if model is closer some pinwheel, make it up
     if (camera.position.z <= pinwheelList[i].position.z + 5 && camera.position.z > pinwheelList[i].position.z) {
       if (pinwheelList[i].position.y < originY) {
         pinwheelList[i].position.y += 0.2;
@@ -407,7 +409,7 @@ function checkPinwheelUp() {
 
 function checkCollision() {
   for (let i = 0; i < pinwheelBoundingBoxList.length; i++) {
-    if (modelBoundingBox.intersectsBox(pinwheelBoundingBoxList[i])) {
+    if (modelBoundingBox.intersectsBox(pinwheelBoundingBoxList[i])) { // if model is intersect with pinwheel, game over
       console.log("Collision detected between model and pinwheel " + i);
       isGamePlaying = false;
       isModelRunning = false;
@@ -427,7 +429,7 @@ function checkCollision() {
       gameOver();
     }
 
-    if (modelBoundingBox.intersectsBox(cubeBoundingBox)) {
+    if (modelBoundingBox.intersectsBox(cubeBoundingBox)) { // if model is intersects with cube, game success
       console.log("Success!");
 
       previousAction = currentAction;
@@ -444,19 +446,18 @@ function checkCollision() {
       
       gsap.to(model.rotation, {y: Math.PI * 2 , duration: 1.5, ease: "power2.inOut"});
 
-      // 애니메이션을 위한 Tween 구성
       const initial = model.position.y;
       const target = model.position.y + 1.0;
       const modelFloat = new TWEEN.Tween({ y: initial })
-      .to({ y: target }, 500) // 움직임의 크기 및 시간 설정
-      .easing(TWEEN.Easing.Quadratic.InOut) // 움직임의 형태 설정
-      .yoyo(true) // 애니메이션을 왕복하도록 설정
-      .repeat(Infinity) // 애니메이션을 계속 반복하도록 설정
+      .to({ y: target }, 500) 
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .yoyo(true)
+      .repeat(Infinity)
       .onUpdate(function (object) {
         model.position.y = object.y;
       });
 
-      modelFloat.start(); // 애니메이션 실행
+      modelFloat.start();
 
       gameSuccess();
     }
@@ -478,7 +479,7 @@ function animate() {
       model.position.z -= 0.1;
       camera.position.z -= 0.1;
       cameraTarget.z -= 0.1;
-      camera.lookAt(cameraTarget);
+      camera.lookAt(cameraTarget); // make the model is on the left side of screen
 
       modelBoundingBox = new THREE.Box3().setFromObject(model);
 
