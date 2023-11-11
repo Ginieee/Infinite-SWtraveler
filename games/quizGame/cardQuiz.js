@@ -102,7 +102,6 @@ function init() {
   generateStartButton();
 
   generateQuestion();
-  generateAnswers();
 
   animate();
 }
@@ -128,7 +127,7 @@ function generateQuestion() {
       bevelEnabled: false
     });
 
-    // 텍스트의 중심을 정렬하여 위치 조정
+    // Text align center
     geometry.computeBoundingBox();
     const textWidth = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
     geometry.translate(-0.5 * textWidth, 0, 0);
@@ -147,59 +146,20 @@ function generateQuestion() {
   });
 }
 
-function generateAnswers() {
-  const loader = new THREE.FontLoader();
-  loader.load('../../data/assets/fonts/Lilita One_Regular.json', function (font) {
-    const geometry1 = new THREE.TextGeometry('A', {
-      font: font,
-      size: 0.6,
-      height: 0.2,
-      curveSegments: 12,
-      bevelEnabled: false
-    });
-
-    const geometry2 = new THREE.TextGeometry('B', {
-      font: font,
-      size: 0.6,
-      height: 0.2,
-      curveSegments: 12,
-      bevelEnabled: false
-    });
-
-    const material = new THREE.MeshPhongMaterial({
-      color: 0x0000ff,
-    });
-
-    text1 = new THREE.Mesh(geometry1, material);
-    text2 = new THREE.Mesh(geometry2, material);
-    text1.castShadow = true;
-    text2.castShadow = true;
-  
-    // Position the text above the button's center
-    text1.position.set(button1.position.x, button1.position.y + 2, button1.position.z - 1);
-    text2.position.set(button2.position.x, button2.position.y + 2, button2.position.z - 1);
-  
-    scene.add(text1);
-    scene.add(text2);
-    animateText(text1, true);
-    animateText(text2, false);
-  });
-}
-
 function generatePlane() {
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load('../../data/assets/textures/floor.jpeg');
 
-  // 텍스처를 반복시키기 위해 repeat 설정
+  // To repeat texture, set wrap mode of texture to THREE.RepeatWrapping
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  const repeatX = 4; // X 방향으로 4번 반복
-  const repeatY = 4; // Y 방향으로 4번 반복
+  const repeatX = 4; // repeat 4 times in X direction
+  const repeatY = 4; // repeat 4 times in Y direction
   texture.repeat.set(repeatX, repeatY);
 
   const geometry = new THREE.PlaneGeometry(30, 30, 50, 50);
   const material = new THREE.MeshStandardMaterial({
-    map: texture, // 텍스처를 머티리얼에 추가
+    map: texture, // add texture to material
     side: THREE.DoubleSide
   });
   plane = new THREE.Mesh(geometry, material);
@@ -264,16 +224,15 @@ function generateButtons() {
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load('../../data/assets/textures/button.jpg');
   
-  // 텍스처를 반복시키기 위해 repeat 설정
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  const repeatX = 4; // X 방향으로 4번 반복
-  const repeatY = 4; // Y 방향으로 4번 반복
+  const repeatX = 4; 
+  const repeatY = 4;
   texture.repeat.set(repeatX, repeatY);
 
   const geometry = new THREE.BoxGeometry(15, 6, 0.4, 50, 50, 50);
   const material = new THREE.MeshStandardMaterial({
-    map: texture, // 텍스처를 머티리얼에 추가
+    map: texture, 
     side: THREE.DoubleSide
   });
   button1 = new THREE.Mesh(geometry, material);
@@ -299,10 +258,9 @@ function generateLight() {
   directionLight.position.set(0, 20, -15);
   directionLight.castShadow = true;
 
-  // 추가 설정 - 그림자를 드리우기 위해 필요한 설정
   directionLight.shadow.mapSize.width = 1024;
   directionLight.shadow.mapSize.height = 1024;
-  // Additional settings for shadows to appear larger
+  
   directionLight.shadow.camera.top = 10;
   directionLight.shadow.camera.bottom = -20;
   directionLight.shadow.camera.left = -20;
@@ -327,11 +285,11 @@ window.addEventListener("resize", handleResize);
 
 function onDocumentClick(event) {
   event.preventDefault();
-  // 마우스 클릭 좌표를 획득
+  // Get mouse position
   const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
   const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 
-  // 레이캐스팅을 통해 클릭한 객체를 찾음
+  // Find clicked objects
   const raycaster = new THREE.Raycaster();
   const mouseVector = new THREE.Vector2(mouseX, mouseY);
   raycaster.setFromCamera(mouseVector, camera);
@@ -362,7 +320,7 @@ function onDocumentClick(event) {
         return;
       }
 
-      // 카메라를 게임 화면으로 이동
+      // Move camera to game position
       new TWEEN.Tween(camera.position)
         .to({ x: 0, y: 3, z: 25 }, 1000)
         .easing(TWEEN.Easing.Quadratic.InOut)
@@ -386,19 +344,19 @@ function onDocumentClick(event) {
 
 function animateButton(button) {
   const initialPosition = button.position.y;
-  const targetPosition = initialPosition - 0.2; // 클릭시 버튼의 이동 위치
+  const targetPosition = initialPosition - 0.2;
 
-  // 버튼을 눌렀을 때의 Tween 애니메이션
+  // When button is pressed, move it down
   const buttonPress = new TWEEN.Tween({ y: initialPosition })
-    .to({ y: targetPosition }, 300) // 500ms 동안의 애니메이션
+    .to({ y: targetPosition }, 300)
     .easing(TWEEN.Easing.Quadratic.In)
     .onUpdate(function (object) {
       button.position.y = object.y;
     });
 
-  // 버튼이 원래 위치로 돌아오는 Tween 애니메이션
+  // Animation when button is released
   const buttonRelease = new TWEEN.Tween({ y: targetPosition })
-    .to({ y: initialPosition }, 300) // 500ms 동안의 애니메이션
+    .to({ y: initialPosition }, 300)
     .easing(TWEEN.Easing.Quadratic.Out)
     .onComplete(() => {
       if(isGamePlaying){
@@ -413,7 +371,7 @@ function animateButton(button) {
       button.position.y = object.y;
     });
 
-  // 각 애니메이션을 이어붙이고 순차적으로 실행
+  // Execute animations in sequence
   buttonPress.chain(buttonRelease).start();
 }
 
@@ -423,17 +381,16 @@ function animateText(textMesh, state) {
   const initial = state ? initialPosition : initialPosition + 0.5;
   const target = state ? initialPosition + 0.5 : initialPosition;
 
-  // 애니메이션을 위한 Tween 구성
   const textFloat = new TWEEN.Tween({ y: initial })
-    .to({ y: target }, 2000) // 움직임의 크기 및 시간 설정
-    .easing(TWEEN.Easing.Quadratic.InOut) // 움직임의 형태 설정
-    .yoyo(true) // 애니메이션을 왕복하도록 설정
-    .repeat(Infinity) // 애니메이션을 계속 반복하도록 설정
+    .to({ y: target }, 2000) 
+    .easing(TWEEN.Easing.Quadratic.InOut) 
+    .yoyo(true) 
+    .repeat(Infinity) 
     .onUpdate(function (object) {
       textMesh.position.y = object.y;
     });
 
-  textFloat.start(); // 애니메이션 실행
+  textFloat.start();
 }
 
 function animate() {
@@ -518,7 +475,6 @@ function playGame() {
     text1.position.set(button1.position.x, button1.position.y + 2, button1.position.z - 1);
     text2.position.set(button2.position.x, button2.position.y + 2, button2.position.z - 1);
 
-    // 텍스트의 중심을 정렬하여 위치 조정
     choice1Geometry.computeBoundingBox();
     const text1Width = choice1Geometry.boundingBox.max.x - choice1Geometry.boundingBox.min.x;
     text1.position.x -= 0.5 * text1Width;

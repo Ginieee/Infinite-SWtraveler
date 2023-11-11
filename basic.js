@@ -1086,8 +1086,6 @@ class App {
 
             // 게임 시작 관련
             if(this.tunnelBoundingBox && this._modelBoundingBox) {
-                // console.log("tunnelBoundingBox", this.tunnelBoundingBox);
-                // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnelBoundingBox.intersectsBox(this._modelBoundingBox);
                 if(isCollision && localStorage.getItem("stage") == "chromeGame") {
                     console.log('Tunnel With Model');
@@ -1099,8 +1097,6 @@ class App {
             }
 
             if(this.tunnel1BoundingBox && this._modelBoundingBox) {
-                // console.log("tunnel1BoundingBox", this.tunnel1BoundingBox);
-                // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel1BoundingBox.intersectsBox(this._modelBoundingBox);
                 if(isCollision && localStorage.getItem("stage") == "quizGame") {
                     console.log('Tunnel 1 With Model');
@@ -1112,8 +1108,6 @@ class App {
             }
 
             if(this.tunnel2BoundingBox && this._modelBoundingBox) {
-                // console.log("tunnel2BoundingBox", this.tunnel2BoundingBox);
-                // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel2BoundingBox.intersectsBox(this._modelBoundingBox);
                 if(isCollision && localStorage.getItem("stage") == "burgerGame") {
                     console.log('Tunnel 2 With Model');
@@ -1125,8 +1119,6 @@ class App {
             }
 
             if(this.tunnel3BoundingBox && this._modelBoundingBox) {
-                // console.log("tunnel3BoundingBox", this.tunnel3BoundingBox);
-                // console.log("modelBoundingBox", this._modelBoundingBox);
                 const isCollision = this.tunnel3BoundingBox.intersectsBox(this._modelBoundingBox);
                 if(isCollision && localStorage.getItem("stage") == "photo") {
                     console.log('Tunnel 3 With Model');
@@ -1177,6 +1169,8 @@ class App {
                         opacity: 1, // 최종 투명도 (1: 완전 불투명, 0: 완전 투명)
                         duration: 1, // 애니메이션 지속 시간 (초 단위)
                         ease: "power1.out" // 애니메이션 효과 (옵션)
+                    }).then(() => {
+                        setTimeout(() => window.location.href = "http://127.0.0.1:5500/ending/ending.html", 500);
                     });
                 }
             }
