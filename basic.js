@@ -1145,7 +1145,7 @@ class App {
                 this._ligth4.intensity -= 0.001;
             }
 
-            // 게임 시작 관련
+            // About activities
             if (this.tunnelBoundingBox && this._modelBoundingBox) {
                 const isCollision = this.tunnelBoundingBox.intersectsBox(this._modelBoundingBox);
                 if (isCollision && localStorage.getItem("stage") == "chromeGame") {

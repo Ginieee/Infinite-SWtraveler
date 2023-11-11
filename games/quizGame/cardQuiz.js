@@ -10,6 +10,7 @@ let nowQuiz;
 
 let orbitControls;
 
+// Quiz questions and answers
 const Quiz = [
   {
     question: "Mudang is stop when the weather is...",

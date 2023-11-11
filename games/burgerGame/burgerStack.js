@@ -105,7 +105,7 @@ document.getElementById('start-btn').addEventListener('click', function () {
   orbitControls.autoRotate = false;
   
   gsap.to(totalGroup.rotation, {y: Math.PI * 4 , duration: 2, ease: "power2.inOut"}).then(() => {
-    // scene에 추가되어 있던 모든 요소들을 삭제
+    // remove children of scene to add new one after
     if (scene.children.length > 0) {
       scene.remove.apply(scene, scene.children);
     }
@@ -155,6 +155,8 @@ function init() {
     const model = gltf.scene;
 
     model.scale.set(0.1, 0.1, 0.1);
+
+    // find each object to grouping
     model.traverse(object => {
       if (object.isMesh) {
         object.castShadow = true;
@@ -235,7 +237,7 @@ function init() {
       }
     });
 
-
+    // make each group to control them
     plateGroup.add(plate1, plate2);
     bottomBreadGroup.add(bottomBread1, bottomBread2);
     topBreadGroup.add(topBread1, topBread2, topBread3);
@@ -304,7 +306,7 @@ function generateLight() {
 
 function checkPosition() {
   if (Math.abs(burgerList[nowIdx].position.x - platePosition.x) +
-    Math.abs(burgerList[nowIdx].position.z - platePosition.z) >= positionOffset) {
+    Math.abs(burgerList[nowIdx].position.z - platePosition.z) >= positionOffset) { // if this burger ingredient is not on the plate, false
       return false;
   } else {
     return true;
@@ -322,7 +324,7 @@ function handleSpaceDown(event) {
         gameSuccess();
       } else {
         currentDirection = !currentDirection;
-        nowIdx++;
+        nowIdx++; // go to next burger ingredient
         scene.add(burgerList[nowIdx]);
       }
     } else {
