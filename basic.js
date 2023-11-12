@@ -91,6 +91,7 @@ class App {
                 this._maxSpeed = 250;
                 this._acceleration = 3;
             } else {
+                this._setAnimationSpeed(1); // 애니메이션 속도를 2.0으로 설정
                 this._currentAnimationAction = this._animationMap["Walk"];
                 //this._speed = 80;
                 this._maxSpeed = 80;
@@ -594,7 +595,6 @@ class App {
 
         new THREE.GLTFLoader().load("data/subway.glb", (gltf) => {
             const subway = gltf.scene;
-            subway.children[0].material.metalness = 0;
             this._scene.add(subway);
 
             subway.traverse(child => {
@@ -603,10 +603,26 @@ class App {
                 }
             });
 
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(subway);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._subwayMixer = mixer;
+            this._subwayAnimationMap1 = animationsMap;
+            this._currentSubwayAnimationAction1 = this._subwayAnimationMap1["Drive"];
+            this._currentSubwayAnimationAction1.play();
+
+
             const box = (new THREE.Box3).setFromObject(subway);
             subway.position.y = (box.max.y - box.min.y) / 2;
 
-            subway.scale.set(20, 20, 20);
+            subway.scale.set(23, 23, 23);
 
             if (localStorage.getItem("subway") == "clear") {
                 subway.position.x = 4000;
@@ -632,6 +648,20 @@ class App {
                     child.castShadow = true;
                 }
             });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(bus);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._busMixer = mixer;
+            this._busAnimationMap = animationsMap;
+            this._currentBusAnimationAction0 = this._busAnimationMap["Drive"];
+            this._currentBusAnimationAction0.play();
 
             const box = (new THREE.Box3).setFromObject(bus);
             bus.position.y = 55;
@@ -679,7 +709,8 @@ class App {
             this._busStop = busStop;
         });
 
-        new THREE.GLTFLoader().load("data/vane.glb", (gltf) => {
+        // 바람개비 0
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
             const vane = gltf.scene;
             this._scene.add(vane);
 
@@ -698,22 +729,17 @@ class App {
                 animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
             });
 
-            this._vaneMixer = mixer;
-            this._vaneAnimationMap = animationsMap;
-            this._currentVaneAnimationAction = this._vaneAnimationMap["Vane_1"];
-            this._currentVaneAnimationAction.play();
-            
+            this._vaneMixer0 = mixer;
+            this._vaneAnimationMap0 = animationsMap;
+            this._currentVaneAnimationAction0 = this._vaneAnimationMap0["Wind"];
+            this._currentVaneAnimationAction0.play();
+
 
             // set bus stop size bigger
-            vane.scale.set(5, 5, 5);
-            vane.position.x = startPoint.x;
-            vane.position.z = startPoint.z;
-            vane.position.y = -10;
-
-            vane.rotation.y = Math.PI;
-
-            const box = (new THREE.Box3).setFromObject(vane);
-            vane.position.y = (box.max.y - box.min.y) / 2;
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x + 1700;
+            vane.position.z = startPoint.z - 200;
+            vane.position.y = 0;
 
             const boxHelper = new THREE.BoxHelper(vane);
             // this._scene.add(boxHelper);
@@ -721,6 +747,233 @@ class App {
             this._vane = vane;
         });
 
+        // 바람개비 1
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer1 = mixer;
+            this._vaneAnimationMap1 = animationsMap;
+            this._currentVaneAnimationAction1 = this._vaneAnimationMap1["Wind"];
+            this._currentVaneAnimationAction1.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x - 400;
+            vane.position.z = startPoint.z - 200;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
+
+        // 바람개비 2
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer2 = mixer;
+            this._vaneAnimationMap2 = animationsMap;
+            this._currentVaneAnimationAction2 = this._vaneAnimationMap2["Wind"];
+            this._currentVaneAnimationAction2.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x - 800;
+            vane.position.z = startPoint.z - 600;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
+
+        // 바람개비 3
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer3 = mixer;
+            this._vaneAnimationMap3 = animationsMap;
+            this._currentVaneAnimationAction3 = this._vaneAnimationMap3["Wind"];
+            this._currentVaneAnimationAction3.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x + 1000;
+            vane.position.z = startPoint.z + 100;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
+
+        // 바람개비 4
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer4 = mixer;
+            this._vaneAnimationMap4 = animationsMap;
+            this._currentVaneAnimationAction4 = this._vaneAnimationMap4["Wind"];
+            this._currentVaneAnimationAction4.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x + 1400;
+            vane.position.z = startPoint.z - 1200;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
+
+        // 바람개비 5
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer5 = mixer;
+            this._vaneAnimationMap5 = animationsMap;
+            this._currentVaneAnimationAction5 = this._vaneAnimationMap5["Wind"];
+            this._currentVaneAnimationAction5.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x;
+            vane.position.z = startPoint.z - 1200;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
+
+        // 바람개비 6
+        new THREE.GLTFLoader().load("data/vanes.glb", (gltf) => {
+            const vane = gltf.scene;
+            this._scene.add(vane);
+
+            vane.traverse(child => {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                }
+            });
+
+            const animationClips = gltf.animations; // THREE.AnimationClip[]
+            const mixer = new THREE.AnimationMixer(vane);
+            const animationsMap = {};
+            animationClips.forEach(clip => {
+                const name = clip.name;
+                console.log(name);
+                animationsMap[name] = mixer.clipAction(clip); // THREE.AnimationAction
+            });
+
+            this._vaneMixer6 = mixer;
+            this._vaneAnimationMap6 = animationsMap;
+            this._currentVaneAnimationAction6 = this._vaneAnimationMap6["Wind"];
+            this._currentVaneAnimationAction6.play();
+
+
+            // set bus stop size bigger
+            vane.scale.set(8, 8, 8);
+            vane.position.x = startPoint.x+600;
+            vane.position.z = startPoint.z - 800;
+            vane.position.y = 0;
+
+            const boxHelper = new THREE.BoxHelper(vane);
+            // this._scene.add(boxHelper);
+            this._boxHelper_vane = boxHelper;
+            this._vane = vane;
+        });
         new THREE.GLTFLoader().load("data/building_art.glb", (gltf) => {
             const artBuilding = gltf.scene;
             this._scene.add(artBuilding);
@@ -878,7 +1131,7 @@ class App {
             this._gachonBuilding = gachonBuilding;
         });
 
-        new THREE.GLTFLoader().load("data/infinity.glb", (gltf) => {
+        new THREE.GLTFLoader().load("data/infinity_backup.glb", (gltf) => {
             const infinity = gltf.scene;
             this._scene.add(infinity);
 
@@ -1074,7 +1327,7 @@ class App {
     _acceleration = 0;
     _buildingMoveY = 0.5;
     _buildingAcceleration = 0.01;
-    _cameraHold = new THREE.Vector3(-200, 500, 500);
+    _cameraHold = new THREE.Vector3(-200, 400, 500);
     _isHold = true;
 
     _subwayFlag = true;
@@ -1098,7 +1351,16 @@ class App {
             const deltaTime = time - this._previousTime;
             this._mixer.update(deltaTime);
             this._studyMixer.update(deltaTime);
-            this._vaneMixer.update(deltaTime);
+            this._vaneMixer0.update(deltaTime);
+            this._vaneMixer1.update(deltaTime);
+            this._vaneMixer2.update(deltaTime);
+            this._vaneMixer3.update(deltaTime);
+            this._vaneMixer4.update(deltaTime);
+            this._vaneMixer5.update(deltaTime);
+            this._vaneMixer6.update(deltaTime);
+            this._subwayMixer.update(deltaTime);
+            this._busMixer.update(deltaTime);
+
 
             const angleCameraDirectionAxisY = Math.atan2(
                 (this._camera.position.x - this._model.position.x),
@@ -1145,7 +1407,7 @@ class App {
                 this._ligth4.intensity -= 0.001;
             }
 
-            // About activities
+            // 게임 시작 관련
             if (this.tunnelBoundingBox && this._modelBoundingBox) {
                 const isCollision = this.tunnelBoundingBox.intersectsBox(this._modelBoundingBox);
                 if (isCollision && localStorage.getItem("stage") == "chromeGame") {
